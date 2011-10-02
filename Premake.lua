@@ -25,11 +25,10 @@ solution "Gamma"
 		["Sources"] = "**.cpp"
 	}
 	
-	project "Engine"
-		kind "SharedLib"
-		files { "Source/Engine/**.cpp", "Source/Engine/**.h" }
-		links { "Audio", "Renderer", "Utilities" }
-		defines { "GAMMA_ENGINE_INTERNAL" }
+	project "Utilities"
+		kind "StaticLib"
+		files { "Source/Utilities/**.cpp", "Source/Utilities/**.h" }
+		defines { "GAMMA_UTILITIES_INTERNAL" }
 	
 	project "Renderer"
 		kind "SharedLib"
@@ -56,7 +55,8 @@ solution "Gamma"
 		configuration "linux"
 			links { "fmod" }
 	
-	project "Utilities"
-		kind "StaticLib"
-		files { "Source/Utilities/**.cpp", "Source/Utilities/**.h" }
-		defines { "GAMMA_UTILITIES_INTERNAL" }
+	project "Engine"
+		kind "SharedLib"
+		files { "Source/Engine/**.cpp", "Source/Engine/**.h" }
+		links { "Utilities", "Renderer", "Audio" }
+		defines { "GAMMA_ENGINE_INTERNAL" }
