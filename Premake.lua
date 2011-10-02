@@ -3,7 +3,9 @@ solution "Gamma"
 	location "Projects"
 	targetdir "Binaries"
 	includedirs "Include"
-	configurations { "Debug", "Release" }
+	libdirs "Libraries"
+	configurations { "debug", "release" }
+	platforms {"x32", "x64"}
 	
 	configuration "windows"
 		defines { "GLEW_STATIC", "GAMMA_PLATFORM_WIN32", "_CRT_SECURE_NO_WARNINGS" }
@@ -11,11 +13,11 @@ solution "Gamma"
 	configuration "linux"
 		defines { "GLEW_STATIC", "GAMMA_PLATFORM_LINUX" }
 	
-	configuration "Debug"
+	configuration "debug"
 		defines { "GAMMA_DEBUG" }
 		flags { "StaticRuntime", "Symbols" }
 	
-	configuration "Release"
+	configuration "release"
 		defines { "GAMMA_RELEASE" }
 		flags { "StaticRuntime" }
 	
@@ -29,6 +31,9 @@ solution "Gamma"
 		kind "StaticLib"
 		files { "Source/Utilities/**.cpp", "Source/Utilities/**.h" }
 		defines { "GAMMA_UTILITIES_INTERNAL" }
+		
+		configuration { "linux", "x64" }
+			buildoptions { "-fPIC" }
 	
 	project "Renderer"
 		kind "SharedLib"
@@ -37,7 +42,7 @@ solution "Gamma"
 		defines { "GAMMA_RENDERER_INTERNAL" }
 		
 		configuration "windows"
-			links { "opengl32", "../Libraries/glew32s" }
+			links { "opengl32", "glew" }
 			excludes { "Source/Renderer/Linux/**" }
 		
 		configuration "linux"
@@ -51,9 +56,11 @@ solution "Gamma"
 		defines { "GAMMA_AUDIO_INTERNAL" }
 		
 		configuration "windows"
-			links { "../Libraries/fmodex_vc" }
-		configuration "linux"
-			links { "fmod" }
+			links { "fmodex" }
+		configuration { "linux", "x32" }
+			links { "fmodex32" }
+		configuration { "linux", "x64" }
+			links { "fmodex64" }
 	
 	project "Engine"
 		kind "SharedLib"
