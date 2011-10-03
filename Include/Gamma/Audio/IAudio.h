@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include "Platform.h"
+#include "IBuffer.h"
 #include "ISource.h"
 
 namespace Gamma
@@ -16,7 +17,10 @@ namespace Gamma
 			virtual void uninitialize() = 0;
 			virtual bool isInitialized() const = 0;
 
+			virtual IBuffer *createBuffer() = 0;
 			virtual ISource *createSource() = 0;
+
+			virtual void destroyBuffer(IBuffer *buffer) = 0;
 			virtual void destroySource(ISource *source) = 0;
 
 			virtual void setListenerPosition(const glm::vec3 &position) = 0;

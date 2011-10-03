@@ -1,6 +1,7 @@
 #include <AL/al.h>
 #include <Gamma/Utilities/Debug.h>
 #include "Audio.h"
+#include "Buffer.h"
 #include "Source.h"
 
 namespace Gamma
@@ -73,6 +74,16 @@ namespace Gamma
 			return m_initialized;
 		}
 
+		IBuffer *Audio::createBuffer()
+		{
+			if(!m_initialized)
+			{
+				return NULL;
+			}
+
+			return new Buffer;
+		}
+
 		ISource *Audio::createSource()
 		{
 			if(!m_initialized)
@@ -81,6 +92,16 @@ namespace Gamma
 			}
 
 			return new Source;
+		}
+
+		void Audio::destroyBuffer(IBuffer *buffer)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			delete (Buffer *)buffer;
 		}
 
 		void Audio::destroySource(ISource *source)

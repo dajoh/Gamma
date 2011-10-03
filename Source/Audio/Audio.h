@@ -18,7 +18,10 @@ namespace Gamma
 			void uninitialize();
 			bool isInitialized() const;
 
+			IBuffer *createBuffer();
 			ISource *createSource();
+
+			void destroyBuffer(IBuffer *buffer);
 			void destroySource(ISource *source);
 
 			void setListenerPosition(const glm::vec3 &position);
