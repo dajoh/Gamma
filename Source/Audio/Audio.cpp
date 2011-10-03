@@ -1,6 +1,7 @@
-#include <cstddef>
+#include <AL/al.h>
+#include <Gamma/Utilities/Debug.h>
 #include "Audio.h"
-#include "Sound.h"
+#include "Source.h"
 
 namespace Gamma
 {
@@ -8,7 +9,7 @@ namespace Gamma
 	{
 		Audio::Audio() : m_initialized(false)
 		{
-			
+
 		}
 
 		Audio::~Audio()
@@ -19,21 +20,33 @@ namespace Gamma
 			}
 		}
 
-		bool Audio::initialize(int maxChannels)
+		bool Audio::initialize()
 		{
 			if(m_initialized)
 			{
 				return false;
 			}
 
-			if(FMOD::System_Create(&m_system) != FMOD_OK)
+			m_device = alcOpenDevice(NULL);
+			if(!m_device)
 			{
+				Utilities::printDebugString("[Gamma::Audio::Audio] Couldn't open an OpenAL device.\n");
 				return false;
 			}
 
-			if(m_system->init(maxChannels, FMOD_INIT_NORMAL, NULL) != FMOD_OK)
+			m_context = alcCreateContext(m_device, NULL);
+			if(!m_context)
 			{
-				m_system->release();
+				Utilities::printDebugString("[Gamma::Audio::Audio] Couldn't create an OpenAL context.\n");
+				alcCloseDevice(m_device);
+				return false;
+			}
+
+			if(!alcMakeContextCurrent(m_context))
+			{
+				Utilities::printDebugString("[Gamma::Audio::Audio] Couldn't activate the OpenAL context.\n");
+				alcDestroyContext(m_context);
+				alcCloseDevice(m_device);
 				return false;
 			}
 
@@ -48,8 +61,9 @@ namespace Gamma
 				return;
 			}
 
-			m_system->close();
-			m_system->release();
+			alcMakeContextCurrent(NULL);
+			alcDestroyContext(m_context);
+			alcCloseDevice(m_device);
 
 			m_initialized = false;
 		}
@@ -59,24 +73,55 @@ namespace Gamma
 			return m_initialized;
 		}
 
-		ISound *Audio::createSound()
+		ISource *Audio::createSource()
 		{
 			if(!m_initialized)
 			{
 				return NULL;
 			}
 
-			return new Sound(m_system);
+			return new Source;
 		}
 
-		void Audio::destroySound(ISound *sound)
+		void Audio::destroySource(ISource *source)
 		{
 			if(!m_initialized)
 			{
 				return;
 			}
 
-			delete (Sound *)sound;
+			delete (Source *)source;
+		}
+
+		void Audio::setListenerPosition(const glm::vec3 &position)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			alListenerfv(AL_POSITION, &position[0]);
+		}
+
+		void Audio::setListenerVelocity(const glm::vec3 &velocity)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			alListenerfv(AL_VELOCITY, &velocity[0]);
+		}
+
+		void Audio::setListenerOrientation(const glm::vec3 &forward, const glm::vec3 &up)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			ALfloat orientation[6] = {forward[0], forward[1], forward[2], up[0], up[1], up[2]};
+			alListenerfv(AL_ORIENTATION, orientation);
 		}
 
 		bool Audio::update()
@@ -86,7 +131,6 @@ namespace Gamma
 				return false;
 			}
 
-			m_system->update();
 			return true;
 		}
 

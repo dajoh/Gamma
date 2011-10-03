@@ -1,7 +1,7 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
-#include <fmod/fmod.hpp>
+#include <AL/alc.h>
 #include <Gamma/Audio/IAudio.h>
 
 namespace Gamma
@@ -14,17 +14,23 @@ namespace Gamma
 			Audio();
 			~Audio();
 
-			bool initialize(int maxChannels);
+			bool initialize();
 			void uninitialize();
 			bool isInitialized() const;
 
-			ISound *createSound();
-			void destroySound(ISound *sound);
+			ISource *createSource();
+			void destroySource(ISource *source);
+
+			void setListenerPosition(const glm::vec3 &position);
+			void setListenerVelocity(const glm::vec3 &velocity);
+			void setListenerOrientation(const glm::vec3 &forward, const glm::vec3 &up);
 
 			bool update();
 		private:
 			bool m_initialized;
-			FMOD::System *m_system;
+
+			ALCdevice *m_device;
+			ALCcontext *m_context;
 		};
 
 		Audio *getInternalAudio();

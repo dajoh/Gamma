@@ -2,10 +2,10 @@ solution "Gamma"
 	language "C++"
 	location "Projects"
 	targetdir "Binaries"
-	includedirs "Include"
-	libdirs "Libraries"
+	includedirs { "Include" }
+	libdirs { "Libraries" }
 	configurations { "debug", "release" }
-	platforms {"x32", "x64"}
+	platforms { "x32", "x64" }
 	
 	configuration "windows"
 		defines { "GLEW_STATIC", "GAMMA_PLATFORM_WIN32", "_CRT_SECURE_NO_WARNINGS" }
@@ -52,15 +52,8 @@ solution "Gamma"
 	project "Audio"
 		kind "SharedLib"
 		files { "Source/Audio/**.cpp", "Source/Audio/**.h" }
-		links { "Utilities" }
+		links { "openal", "Utilities" }
 		defines { "GAMMA_AUDIO_INTERNAL" }
-		
-		configuration "windows"
-			links { "fmodex" }
-		configuration { "linux", "x32" }
-			links { "fmodex32" }
-		configuration { "linux", "x64" }
-			links { "fmodex64" }
 	
 	project "Engine"
 		kind "SharedLib"
