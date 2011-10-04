@@ -35,7 +35,11 @@ namespace Gamma
 				return false;
 			}
 
+			// Clear the error state, then fill the buffer.
+			alGetError();
 			alBufferData(m_buffer, realFormat, data, size, frequency);
+
+			// Check if an error occured.
 			if(alGetError() != AL_NO_ERROR)
 			{
 				return false;
