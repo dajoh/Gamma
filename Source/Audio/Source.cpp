@@ -1,5 +1,4 @@
 #include <cstddef>
-#include "Buffer.h"
 #include "Source.h"
 
 namespace Gamma
@@ -18,6 +17,12 @@ namespace Gamma
 
 		void Source::setBuffer(IBuffer *buffer)
 		{
+			Buffer *internalBuffer = dynamic_cast<Buffer *>(buffer);
+			if(!internalBuffer)
+			{
+				return;
+			}
+
 			if(isPlaying())
 			{
 				stop();
@@ -25,14 +30,14 @@ namespace Gamma
 
 			if(buffer)
 			{
-				alSourcei(m_source, AL_BUFFER, ((Buffer *)buffer)->m_buffer);
+				alSourcei(m_source, AL_BUFFER, internalBuffer->m_buffer);
 			}
 			else
 			{
 				alSourcei(m_source, AL_BUFFER, AL_NONE);
 			}
 
-			m_buffer = buffer;
+			m_buffer = internalBuffer;
 		}
 
 		IBuffer *Source::getBuffer()

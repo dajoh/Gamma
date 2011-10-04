@@ -3,6 +3,7 @@
 
 #include <AL/al.h>
 #include <Gamma/Audio/ISource.h>
+#include "Buffer.h"
 
 namespace Gamma
 {
@@ -27,7 +28,7 @@ namespace Gamma
 			bool isLooping() const;
 		private:
 			ALuint m_source;
-			IBuffer *m_buffer;
+			Buffer *m_buffer;
 		};
 	}
 }
