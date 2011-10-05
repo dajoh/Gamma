@@ -1,16 +1,11 @@
 #include <GL/glew.h>
 #include <Gamma/Utilities/Debug.h>
+#include <Gamma/Renderer/IWindow.h>
 #include "Renderer.h"
 #include "Mesh.h"
 #include "Shader.h"
 #include "Texture.h"
 #include "Framebuffer.h"
-
-#ifdef GAMMA_PLATFORM_WIN32
-#include "Win32/WindowImpl.h"
-#else
-#include "Linux/WindowImpl.h"
-#endif
 
 namespace Gamma
 {

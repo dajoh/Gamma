@@ -7,6 +7,7 @@ namespace Gamma
 	{
 		typedef enum
 		{
+			KeyCode_None,
 			KeyCode_0,
 			KeyCode_1,
 			KeyCode_2,
@@ -17,7 +18,6 @@ namespace Gamma
 			KeyCode_7,
 			KeyCode_8,
 			KeyCode_9,
-
 			KeyCode_A,
 			KeyCode_B,
 			KeyCode_C,
@@ -44,7 +44,6 @@ namespace Gamma
 			KeyCode_X,
 			KeyCode_Y,
 			KeyCode_Z,
-
 			KeyCode_Pad0,
 			KeyCode_Pad1,
 			KeyCode_Pad2,
@@ -61,7 +60,6 @@ namespace Gamma
 			KeyCode_PadPlus,
 			KeyCode_PadEnter,
 			KeyCode_PadDecimal,
-
 			KeyCode_LeftBracket,
 			KeyCode_RightBracket,
 			KeyCode_Semicolon,
@@ -72,35 +70,29 @@ namespace Gamma
 			KeyCode_Backslash,
 			KeyCode_Minus,
 			KeyCode_Equal,
-
 			KeyCode_Enter,
 			KeyCode_Space,
 			KeyCode_Backspace,
 			KeyCode_Escape,
 			KeyCode_Tab,
-
 			KeyCode_Insert,
 			KeyCode_Home,
 			KeyCode_Delete,
 			KeyCode_End,
 			KeyCode_PageUp,
 			KeyCode_PageDown,
-
 			KeyCode_PrintScreen,
 			KeyCode_Pause,
-
 			KeyCode_LeftShift,
 			KeyCode_RightShift,
 			KeyCode_LeftControl,
 			KeyCode_RightControl,
 			KeyCode_LeftAlt,
 			KeyCode_RightAlt,
-
 			KeyCode_Up,
 			KeyCode_Left,
 			KeyCode_Down,
 			KeyCode_Right,
-
 			KeyCode_F1,
 			KeyCode_F2,
 			KeyCode_F3,
@@ -113,7 +105,6 @@ namespace Gamma
 			KeyCode_F10,
 			KeyCode_F11,
 			KeyCode_F12,
-
 			KeyCode_CapsLock,
 			KeyCode_ScrollLock,
 			KeyCode_NumLock

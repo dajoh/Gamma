@@ -34,11 +34,12 @@ namespace Gamma
 
 			bool m_created;
 			bool m_closed;
-
 			DWORD m_style;
 			HWND m_window;
 			HDC m_dc;
 			HGLRC m_context;
+
+			int m_virtualKeyMap[256];
 		};
 
 		WindowImpl *getInternalWindow();

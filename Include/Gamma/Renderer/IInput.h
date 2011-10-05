@@ -17,6 +17,7 @@ namespace Gamma
 			virtual bool isInitialized() const = 0;
 
 			virtual bool update() = 0;
+			virtual void updateKeys() = 0;
 
 			virtual bool isKeyUp(KeyCode_t keyCode) const = 0;
 			virtual bool isKeyDown(KeyCode_t keyCode) const = 0;

@@ -1,4 +1,6 @@
+#include <Gamma/Utilities/Debug.h>
 #include "WindowImpl.h"
+#include "InputImpl.h"
 
 #define WINDOW_CLASS "GammaWindowClass"
 #define WINDOW_STYLE_WINDOWED (WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU)
@@ -10,7 +12,126 @@ namespace Gamma
 	{
 		WindowImpl::WindowImpl() : m_created(false)
 		{
+			memset(m_virtualKeyMap, 0, sizeof(int) * 256);
 
+			// Mouse buttons.
+			m_virtualKeyMap[VK_LBUTTON] = MouseCode_Left;
+			m_virtualKeyMap[VK_RBUTTON] = MouseCode_Right;
+			m_virtualKeyMap[VK_MBUTTON] = MouseCode_Middle;
+
+			// Number keys.
+			m_virtualKeyMap['0'] = KeyCode_0;
+			m_virtualKeyMap['1'] = KeyCode_1;
+			m_virtualKeyMap['2'] = KeyCode_2;
+			m_virtualKeyMap['3'] = KeyCode_3;
+			m_virtualKeyMap['4'] = KeyCode_4;
+			m_virtualKeyMap['5'] = KeyCode_5;
+			m_virtualKeyMap['6'] = KeyCode_6;
+			m_virtualKeyMap['7'] = KeyCode_7;
+			m_virtualKeyMap['8'] = KeyCode_8;
+			m_virtualKeyMap['9'] = KeyCode_9;
+
+			// Letter keys.
+			m_virtualKeyMap['A'] = KeyCode_A;
+			m_virtualKeyMap['B'] = KeyCode_B;
+			m_virtualKeyMap['C'] = KeyCode_C;
+			m_virtualKeyMap['D'] = KeyCode_D;
+			m_virtualKeyMap['E'] = KeyCode_E;
+			m_virtualKeyMap['F'] = KeyCode_F;
+			m_virtualKeyMap['G'] = KeyCode_G;
+			m_virtualKeyMap['H'] = KeyCode_H;
+			m_virtualKeyMap['I'] = KeyCode_I;
+			m_virtualKeyMap['J'] = KeyCode_J;
+			m_virtualKeyMap['K'] = KeyCode_K;
+			m_virtualKeyMap['L'] = KeyCode_L;
+			m_virtualKeyMap['M'] = KeyCode_M;
+			m_virtualKeyMap['N'] = KeyCode_N;
+			m_virtualKeyMap['O'] = KeyCode_O;
+			m_virtualKeyMap['P'] = KeyCode_P;
+			m_virtualKeyMap['Q'] = KeyCode_Q;
+			m_virtualKeyMap['R'] = KeyCode_R;
+			m_virtualKeyMap['S'] = KeyCode_S;
+			m_virtualKeyMap['T'] = KeyCode_T;
+			m_virtualKeyMap['U'] = KeyCode_U;
+			m_virtualKeyMap['V'] = KeyCode_V;
+			m_virtualKeyMap['W'] = KeyCode_W;
+			m_virtualKeyMap['X'] = KeyCode_X;
+			m_virtualKeyMap['Y'] = KeyCode_Y;
+			m_virtualKeyMap['Z'] = KeyCode_Z;
+
+			// Numpad keys.
+			m_virtualKeyMap[VK_NUMPAD0] = KeyCode_Pad0;
+			m_virtualKeyMap[VK_NUMPAD1] = KeyCode_Pad1;
+			m_virtualKeyMap[VK_NUMPAD2] = KeyCode_Pad2;
+			m_virtualKeyMap[VK_NUMPAD3] = KeyCode_Pad3;
+			m_virtualKeyMap[VK_NUMPAD4] = KeyCode_Pad4;
+			m_virtualKeyMap[VK_NUMPAD5] = KeyCode_Pad5;
+			m_virtualKeyMap[VK_NUMPAD6] = KeyCode_Pad6;
+			m_virtualKeyMap[VK_NUMPAD7] = KeyCode_Pad7;
+			m_virtualKeyMap[VK_NUMPAD8] = KeyCode_Pad8;
+			m_virtualKeyMap[VK_NUMPAD9] = KeyCode_Pad9;
+			m_virtualKeyMap[VK_DIVIDE] = KeyCode_PadDivide;
+			m_virtualKeyMap[VK_MULTIPLY] = KeyCode_PadMultiply;
+			m_virtualKeyMap[VK_SUBTRACT] = KeyCode_PadMinus;
+			m_virtualKeyMap[VK_ADD] = KeyCode_PadPlus;
+			m_virtualKeyMap[VK_RETURN] = KeyCode_PadEnter;
+			m_virtualKeyMap[VK_DECIMAL] = KeyCode_PadDecimal;
+
+			// General keys.
+			m_virtualKeyMap[0xDB] = KeyCode_LeftBracket;
+			m_virtualKeyMap[0xDD] = KeyCode_RightBracket;
+			m_virtualKeyMap[0xBA] = KeyCode_Semicolon;
+			m_virtualKeyMap[0xDE] = KeyCode_Apostrophe;
+			m_virtualKeyMap[0xBC] = KeyCode_Comma;
+			m_virtualKeyMap[0xBE] = KeyCode_Period;
+			m_virtualKeyMap[0xBF] = KeyCode_Slash;
+			m_virtualKeyMap[0xDC] = KeyCode_Backslash;
+			m_virtualKeyMap[0xBD] = KeyCode_Minus;
+			m_virtualKeyMap[0xBB] = KeyCode_Equal;
+			m_virtualKeyMap[VK_RETURN] = KeyCode_Enter;
+			m_virtualKeyMap[VK_SPACE] = KeyCode_Space;
+			m_virtualKeyMap[VK_BACK] = KeyCode_Backspace;
+			m_virtualKeyMap[VK_ESCAPE] = KeyCode_Escape;
+			m_virtualKeyMap[VK_TAB] = KeyCode_Tab;
+			m_virtualKeyMap[VK_INSERT] = KeyCode_Insert;
+			m_virtualKeyMap[VK_HOME] = KeyCode_Home;
+			m_virtualKeyMap[VK_DELETE] = KeyCode_Delete;
+			m_virtualKeyMap[VK_END] = KeyCode_End;
+			m_virtualKeyMap[VK_PRIOR] = KeyCode_PageUp;
+			m_virtualKeyMap[VK_NEXT] = KeyCode_PageDown;
+			m_virtualKeyMap[VK_SNAPSHOT] = KeyCode_PrintScreen;
+			m_virtualKeyMap[VK_PAUSE] = KeyCode_Pause;
+			m_virtualKeyMap[VK_LSHIFT] = KeyCode_LeftShift;
+			m_virtualKeyMap[VK_RSHIFT] = KeyCode_RightShift;
+			m_virtualKeyMap[VK_LCONTROL] = KeyCode_LeftControl;
+			m_virtualKeyMap[VK_RCONTROL] = KeyCode_RightControl;
+			m_virtualKeyMap[VK_MENU] = KeyCode_LeftAlt;
+			m_virtualKeyMap[VK_MENU] = KeyCode_RightAlt;
+
+			// Arrow keys.
+			m_virtualKeyMap[VK_UP] = KeyCode_Up;
+			m_virtualKeyMap[VK_LEFT] = KeyCode_Left;
+			m_virtualKeyMap[VK_DOWN] = KeyCode_Down;
+			m_virtualKeyMap[VK_RIGHT] = KeyCode_Right;
+
+			// F keys.
+			m_virtualKeyMap[VK_F1] = KeyCode_F1;
+			m_virtualKeyMap[VK_F2] = KeyCode_F2;
+			m_virtualKeyMap[VK_F3] = KeyCode_F3;
+			m_virtualKeyMap[VK_F4] = KeyCode_F4;
+			m_virtualKeyMap[VK_F5] = KeyCode_F5;
+			m_virtualKeyMap[VK_F6] = KeyCode_F6;
+			m_virtualKeyMap[VK_F7] = KeyCode_F7;
+			m_virtualKeyMap[VK_F8] = KeyCode_F8;
+			m_virtualKeyMap[VK_F9] = KeyCode_F9;
+			m_virtualKeyMap[VK_F10] = KeyCode_F10;
+			m_virtualKeyMap[VK_F11] = KeyCode_F11;
+			m_virtualKeyMap[VK_F12] = KeyCode_F12;
+
+			// Toggle keys.
+			m_virtualKeyMap[VK_CAPITAL] = KeyCode_CapsLock;
+			m_virtualKeyMap[VK_SCROLL] = KeyCode_ScrollLock;
+			m_virtualKeyMap[VK_NUMLOCK] = KeyCode_NumLock;
 		}
 
 		WindowImpl::~WindowImpl()
@@ -140,10 +261,6 @@ namespace Gamma
 			if(!m_window)
 			{
 				return false;
-			}
-			else
-			{
-				SetWindowLong(m_window, GWL_USERDATA, (LONG)this);
 			}
 
 			// Get the window DC.
@@ -346,22 +463,39 @@ namespace Gamma
 
 		LRESULT WindowImpl::windowProc(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam)
 		{
-			WindowImpl *window = (WindowImpl *)GetWindowLong(windowHandle, GWL_USERDATA);
-			if(!window)
-			{
-				return DefWindowProc(windowHandle, message, wParam, lParam);
-			}
+			WindowImpl *window = getInternalWindow();
+			InputImpl *input = getInternalInput();
 
 			switch(message)
 			{
 			case WM_CLOSE:
 				window->close();
-				break;
-			default:
-				return DefWindowProc(windowHandle, message, wParam, lParam);
+				return 0;
 			}
 
-			return 0;
+			if(input->isInitialized())
+			{
+				if(message == WM_KEYUP || message == WM_KEYDOWN)
+				{
+					int keyCode = window->m_virtualKeyMap[wParam];
+					if(keyCode != KeyCode_None)
+					{
+						if(message == WM_KEYUP)
+						{
+							input->m_keyUp[keyCode] = true;
+							input->m_keyDown[keyCode] = false;
+							input->m_keyPressed[keyCode] = true;
+						}
+						else
+						{
+							input->m_keyUp[keyCode] = false;
+							input->m_keyDown[keyCode] = true;
+						}
+					}
+				}
+			}
+
+			return DefWindowProc(windowHandle, message, wParam, lParam);
 		}
 
 		WindowImpl *getInternalWindow()

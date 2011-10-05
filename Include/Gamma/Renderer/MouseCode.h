@@ -7,6 +7,7 @@ namespace Gamma
 	{
 		typedef enum
 		{
+			MouseCode_None,
 			MouseCode_Left,
 			MouseCode_Right,
 			MouseCode_Middle,
