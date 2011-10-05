@@ -1,4 +1,3 @@
-#include <AL/al.h>
 #include <Gamma/Utilities/Debug.h>
 #include "Audio.h"
 #include "Buffer.h"

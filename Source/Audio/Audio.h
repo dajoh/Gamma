@@ -31,7 +31,6 @@ namespace Gamma
 			bool update();
 		private:
 			bool m_initialized;
-
 			ALCdevice *m_device;
 			ALCcontext *m_context;
 		};

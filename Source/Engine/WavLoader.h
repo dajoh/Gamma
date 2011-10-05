@@ -19,7 +19,6 @@ namespace Gamma
 			unsigned int getSampleRate() const;
 			unsigned int getSampleSize() const;
 			unsigned int getDataSize() const;
-
 			const void *getData() const;
 		private:
 			bool m_loaded;

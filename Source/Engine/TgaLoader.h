@@ -26,7 +26,6 @@ namespace Gamma
 			unsigned int getWidth() const;
 			unsigned int getHeight() const;
 			unsigned int getSize() const;
-
 			const void *getData() const;
 		private:
 			void swizzle();
