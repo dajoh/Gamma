@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include "Platform.h"
 #include "IMatrixStack.h"
+#include "ISound.h"
 #include "IModel.h"
 #include "IImage.h"
 
@@ -19,10 +20,12 @@ namespace Gamma
 			virtual bool isInitialized() const = 0;
 			
 			virtual IMatrixStack *createMatrixStack() = 0;
+			virtual ISound *createSound() = 0;
 			virtual IModel *createModel() = 0;
 			virtual IImage *createImage() = 0;
 
 			virtual void destroyMatrixStack(IMatrixStack *matrixStack) = 0;
+			virtual void destroySound(ISound *sound) = 0;
 			virtual void destroyModel(IModel *model) = 0;
 			virtual void destroyImage(IImage *image) = 0;
 

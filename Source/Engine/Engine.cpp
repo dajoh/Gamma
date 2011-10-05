@@ -3,6 +3,7 @@
 #include <Gamma/Audio/IAudio.h>
 #include "Engine.h"
 #include "MatrixStack.h"
+#include "Sound.h"
 #include "Model.h"
 #include "Image.h"
 
@@ -67,6 +68,16 @@ namespace Gamma
 			return new MatrixStack;
 		}
 
+		ISound *Engine::createSound()
+		{
+			if(!m_initialized)
+			{
+				return NULL;
+			}
+
+			return new Sound;
+		}
+
 		IModel *Engine::createModel()
 		{
 			if(!m_initialized)
@@ -95,6 +106,16 @@ namespace Gamma
 			}
 
 			delete (MatrixStack *)matrixStack;
+		}
+
+		void Engine::destroySound(ISound *sound)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			delete (Sound *)sound;
 		}
 
 		void Engine::destroyModel(IModel *model)

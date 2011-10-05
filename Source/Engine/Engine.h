@@ -22,10 +22,12 @@ namespace Gamma
 			bool isInitialized() const;
 
 			IMatrixStack *createMatrixStack();
+			ISound *createSound();
 			IModel *createModel();
 			IImage *createImage();
 
 			void destroyMatrixStack(IMatrixStack *matrixStack);
+			void destroySound(ISound *sound);
 			void destroyModel(IModel *model);
 			void destroyImage(IImage *image);
 
