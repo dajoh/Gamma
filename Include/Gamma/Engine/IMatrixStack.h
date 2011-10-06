@@ -11,7 +11,7 @@ namespace Gamma
 		{
 			MatrixStackMatrix_Model,
 			MatrixStackMatrix_View,
-			MatrixStackMatrix_Projection,
+			MatrixStackMatrix_Projection
 		} MatrixStackMatrix_t;
 
 		class IMatrixStack

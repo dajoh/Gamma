@@ -11,96 +11,96 @@ namespace Gamma
 {
 	namespace Renderer
 	{
-		static inline GLenum getGlFeature(RendererFeature_t feature)
+		static inline GLenum getGlFeature(Feature_t feature)
 		{
 			switch(feature)
 			{
-			case RendererFeature_Blending:
+			case Feature_Blending:
 				return GL_BLEND;
-			case RendererFeature_DepthTesting:
+			case Feature_DepthTesting:
 				return GL_DEPTH_TEST;
-			case RendererFeature_StencilTesting:
+			case Feature_StencilTesting:
 				return GL_STENCIL_TEST;
 			default:
 				return 0;
 			}
 		}
 
-		static inline GLenum getGlBlendFunction(RendererBlendFunction_t blendFunction)
+		static inline GLenum getGlBlendFunction(BlendFunction_t blendFunction)
 		{
 			switch(blendFunction)
 			{
-			case RendererBlendFunction_Zero:
+			case BlendFunction_Zero:
 				return GL_ZERO;
-			case RendererBlendFunction_One:
+			case BlendFunction_One:
 				return GL_ONE;
-			case RendererBlendFunction_SourceColor:
+			case BlendFunction_SourceColor:
 				return GL_SRC_COLOR;
-			case RendererBlendFunction_OneMinusSourceColor:
+			case BlendFunction_OneMinusSourceColor:
 				return GL_ONE_MINUS_SRC_COLOR;
-			case RendererBlendFunction_DestinationColor:
+			case BlendFunction_DestinationColor:
 				return GL_DST_COLOR;
-			case RendererBlendFunction_OneMinusDestinationColor:
+			case BlendFunction_OneMinusDestinationColor:
 				return GL_ONE_MINUS_DST_COLOR;
-			case RendererBlendFunction_SourceAlpha:
+			case BlendFunction_SourceAlpha:
 				return GL_SRC_ALPHA;
-			case RendererBlendFunction_OneMinusSourceAlpha:
+			case BlendFunction_OneMinusSourceAlpha:
 				return GL_ONE_MINUS_SRC_ALPHA;
-			case RendererBlendFunction_DestinationAlpha:
+			case BlendFunction_DestinationAlpha:
 				return GL_DST_ALPHA;
-			case RendererBlendFunction_OneMinusDestinationAlpha:
+			case BlendFunction_OneMinusDestinationAlpha:
 				return GL_ONE_MINUS_DST_ALPHA;
-			case RendererBlendFunction_SourceAlphaSaturate:
+			case BlendFunction_SourceAlphaSaturate:
 				return GL_SRC_ALPHA_SATURATE;
 			default:
 				return 0;
 			}
 		}
 
-		static inline GLenum getGlBoolFunction(RendererBoolFunction_t boolFunction)
+		static inline GLenum getGlCompareFunction(CompareFunction_t compareFunction)
 		{
-			switch(boolFunction)
+			switch(compareFunction)
 			{
-			case RendererBoolFunction_Never:
+			case CompareFunction_Never:
 				return GL_NEVER;
-			case RendererBoolFunction_Always:
+			case CompareFunction_Always:
 				return GL_ALWAYS;
-			case RendererBoolFunction_Equal:
+			case CompareFunction_Equal:
 				return GL_EQUAL;
-			case RendererBoolFunction_NotEqual:
+			case CompareFunction_NotEqual:
 				return GL_NOTEQUAL;
-			case RendererBoolFunction_Less:
+			case CompareFunction_Less:
 				return GL_LESS;
-			case RendererBoolFunction_LessOrEqual:
+			case CompareFunction_LessOrEqual:
 				return GL_LEQUAL;
-			case RendererBoolFunction_Greater:
+			case CompareFunction_Greater:
 				return GL_GREATER;
-			case RendererBoolFunction_GreaterOrEqual:
+			case CompareFunction_GreaterOrEqual:
 				return GL_GEQUAL;
 			default:
 				return 0;
 			}
 		}
 
-		static inline GLenum getGlStencilOperation(RendererStencilOperation_t stencilOperation)
+		static inline GLenum getGlStencilOperation(StencilOperation_t stencilOperation)
 		{
 			switch(stencilOperation)
 			{
-			case RendererStencilOperation_Keep:
+			case StencilOperation_Keep:
 				return GL_KEEP;
-			case RendererStencilOperation_Zero:
+			case StencilOperation_Zero:
 				return GL_ZERO;
-			case RendererStencilOperation_Replace:
+			case StencilOperation_Replace:
 				return GL_REPLACE;
-			case RendererStencilOperation_Increment:
+			case StencilOperation_Increment:
 				return GL_INCR;
-			case RendererStencilOperation_IncrementWrap:
+			case StencilOperation_IncrementWrap:
 				return GL_INCR_WRAP;
-			case RendererStencilOperation_Decrement:
+			case StencilOperation_Decrement:
 				return GL_DECR;
-			case RendererStencilOperation_DecrementWrap:
+			case StencilOperation_DecrementWrap:
 				return GL_DECR_WRAP;
-			case RendererStencilOperation_Invert:
+			case StencilOperation_Invert:
 				return GL_INVERT;
 			default:
 				return 0;
@@ -257,7 +257,7 @@ namespace Gamma
 			return true;
 		}
 
-		void Renderer::enableFeature(RendererFeature_t feature)
+		void Renderer::enableFeature(Feature_t feature)
 		{
 			if(!m_initialized)
 			{
@@ -273,7 +273,7 @@ namespace Gamma
 			glEnable(capability);
 		}
 
-		void Renderer::disableFeature(RendererFeature_t feature)
+		void Renderer::disableFeature(Feature_t feature)
 		{
 			if(!m_initialized)
 			{
@@ -289,7 +289,7 @@ namespace Gamma
 			glDisable(capability);
 		}
 
-		void Renderer::setBlendFunction(RendererBlendFunction_t sourceFunction, RendererBlendFunction_t destinationFunction)
+		void Renderer::setBlendFunction(BlendFunction_t sourceFunction, BlendFunction_t destinationFunction)
 		{
 			if(!m_initialized)
 			{
@@ -306,14 +306,14 @@ namespace Gamma
 			glBlendFunc(sourceFactor, destinationFactor);
 		}
 
-		void Renderer::setDepthFunction(RendererBoolFunction_t depthFunction)
+		void Renderer::setDepthFunction(CompareFunction_t depthFunction)
 		{
 			if(!m_initialized)
 			{
 				return;
 			}
 
-			GLenum function = getGlBoolFunction(depthFunction);
+			GLenum function = getGlCompareFunction(depthFunction);
 			if(!function)
 			{
 				return;
@@ -322,14 +322,14 @@ namespace Gamma
 			glDepthFunc(function);
 		}
 
-		void Renderer::setStencilFunction(RendererBoolFunction_t stencilFunction, int reference, unsigned int mask)
+		void Renderer::setStencilFunction(CompareFunction_t stencilFunction, int reference, unsigned int mask)
 		{
 			if(!m_initialized)
 			{
 				return;
 			}
 
-			GLenum function = getGlBoolFunction(stencilFunction);
+			GLenum function = getGlCompareFunction(stencilFunction);
 			if(!function)
 			{
 				return;
@@ -338,7 +338,7 @@ namespace Gamma
 			glStencilFunc(function, reference, mask);
 		}
 
-		void Renderer::setStencilOperation(RendererStencilOperation_t stencilFail, RendererStencilOperation_t depthFail, RendererStencilOperation_t pass)
+		void Renderer::setStencilOperation(StencilOperation_t stencilFail, StencilOperation_t depthFail, StencilOperation_t depthPass)
 		{
 			if(!m_initialized)
 			{
@@ -347,7 +347,7 @@ namespace Gamma
 
 			GLenum sFail = getGlStencilOperation(stencilFail);
 			GLenum zFail = getGlStencilOperation(depthFail);
-			GLenum zPass = getGlStencilOperation(pass);
+			GLenum zPass = getGlStencilOperation(depthPass);
 			if(!sFail || !zFail || !zPass)
 			{
 				return;

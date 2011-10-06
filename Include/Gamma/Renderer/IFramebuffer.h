@@ -13,7 +13,7 @@ namespace Gamma
 			FramebufferAttachPoint_Color0,
 			FramebufferAttachPoint_Color1,
 			FramebufferAttachPoint_Color2,
-			FramebufferAttachPoint_Color3,
+			FramebufferAttachPoint_Color3
 		} FramebufferAttachPoint_t;
 
 		class IFramebuffer

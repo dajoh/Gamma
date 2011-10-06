@@ -13,49 +13,49 @@ namespace Gamma
 	{
 		typedef enum
 		{
-			RendererFeature_Blending,
-			RendererFeature_DepthTesting,
-			RendererFeature_StencilTesting
-		} RendererFeature_t;
+			Feature_Blending,
+			Feature_DepthTesting,
+			Feature_StencilTesting
+		} Feature_t;
 
 		typedef enum
 		{
-			RendererBlendFunction_Zero,
-			RendererBlendFunction_One,
-			RendererBlendFunction_SourceColor,
-			RendererBlendFunction_OneMinusSourceColor,
-			RendererBlendFunction_DestinationColor,
-			RendererBlendFunction_OneMinusDestinationColor,
-			RendererBlendFunction_SourceAlpha,
-			RendererBlendFunction_OneMinusSourceAlpha,
-			RendererBlendFunction_DestinationAlpha,
-			RendererBlendFunction_OneMinusDestinationAlpha,
-			RendererBlendFunction_SourceAlphaSaturate
-		} RendererBlendFunction_t;
+			BlendFunction_Zero,
+			BlendFunction_One,
+			BlendFunction_SourceColor,
+			BlendFunction_OneMinusSourceColor,
+			BlendFunction_DestinationColor,
+			BlendFunction_OneMinusDestinationColor,
+			BlendFunction_SourceAlpha,
+			BlendFunction_OneMinusSourceAlpha,
+			BlendFunction_DestinationAlpha,
+			BlendFunction_OneMinusDestinationAlpha,
+			BlendFunction_SourceAlphaSaturate
+		} BlendFunction_t;
 
 		typedef enum
 		{
-			RendererBoolFunction_Never,
-			RendererBoolFunction_Always,
-			RendererBoolFunction_Equal,
-			RendererBoolFunction_NotEqual,
-			RendererBoolFunction_Less,
-			RendererBoolFunction_LessOrEqual,
-			RendererBoolFunction_Greater,
-			RendererBoolFunction_GreaterOrEqual
-		} RendererBoolFunction_t;
+			CompareFunction_Never,
+			CompareFunction_Always,
+			CompareFunction_Equal,
+			CompareFunction_NotEqual,
+			CompareFunction_Less,
+			CompareFunction_LessOrEqual,
+			CompareFunction_Greater,
+			CompareFunction_GreaterOrEqual
+		} CompareFunction_t;
 
 		typedef enum
 		{
-			RendererStencilOperation_Keep,
-			RendererStencilOperation_Zero,
-			RendererStencilOperation_Replace,
-			RendererStencilOperation_Increment,
-			RendererStencilOperation_IncrementWrap,
-			RendererStencilOperation_Decrement,
-			RendererStencilOperation_DecrementWrap,
-			RendererStencilOperation_Invert
-		} RendererStencilOperation_t;
+			StencilOperation_Keep,
+			StencilOperation_Zero,
+			StencilOperation_Replace,
+			StencilOperation_Increment,
+			StencilOperation_IncrementWrap,
+			StencilOperation_Decrement,
+			StencilOperation_DecrementWrap,
+			StencilOperation_Invert
+		} StencilOperation_t;
 
 		class IRenderer
 		{
@@ -76,13 +76,13 @@ namespace Gamma
 
 			virtual bool update() = 0;
 
-			virtual void enableFeature(RendererFeature_t feature) = 0;
-			virtual void disableFeature(RendererFeature_t feature) = 0;
+			virtual void enableFeature(Feature_t feature) = 0;
+			virtual void disableFeature(Feature_t feature) = 0;
 
-			virtual void setBlendFunction(RendererBlendFunction_t sourceFunction, RendererBlendFunction_t destinationFunction) = 0;
-			virtual void setDepthFunction(RendererBoolFunction_t depthFunction) = 0;
-			virtual void setStencilFunction(RendererBoolFunction_t stencilFunction, int reference, unsigned int mask) = 0;
-			virtual void setStencilOperation(RendererStencilOperation_t stencilFail, RendererStencilOperation_t depthFail, RendererStencilOperation_t pass) = 0;
+			virtual void setBlendFunction(BlendFunction_t sourceFunction, BlendFunction_t destinationFunction) = 0;
+			virtual void setDepthFunction(CompareFunction_t depthFunction) = 0;
+			virtual void setStencilFunction(CompareFunction_t stencilFunction, int reference, unsigned int mask) = 0;
+			virtual void setStencilOperation(StencilOperation_t stencilFail, StencilOperation_t depthFail, StencilOperation_t depthPass) = 0;
 
 			virtual void clear(float r, float g, float b, float a) = 0;
 		};

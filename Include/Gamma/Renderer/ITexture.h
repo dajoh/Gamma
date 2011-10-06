@@ -10,7 +10,7 @@ namespace Gamma
 			TextureFormat_D24,
 			TextureFormat_RGB8,
 			TextureFormat_RGBA8,
-			TextureFormat_RG16F,
+			TextureFormat_RG16F
 		} TextureFormat_t;
 
 		class ITexture

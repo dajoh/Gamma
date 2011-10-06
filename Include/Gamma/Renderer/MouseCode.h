@@ -10,7 +10,7 @@ namespace Gamma
 			MouseCode_None,
 			MouseCode_Left,
 			MouseCode_Right,
-			MouseCode_Middle,
+			MouseCode_Middle
 		} MouseCode_t;
 	}
 }

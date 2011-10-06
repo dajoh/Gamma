@@ -9,7 +9,7 @@ namespace Gamma
 		{
 			MeshDataUsage_Static,
 			MeshDataUsage_Stream,
-			MeshDataUsage_Dynamic,
+			MeshDataUsage_Dynamic
 		} MeshDataUsage_t;
 
 		typedef enum
@@ -19,7 +19,7 @@ namespace Gamma
 			MeshPrimitive_LineStrip,
 			MeshPrimitive_Triangles,
 			MeshPrimitive_TriangleStrip,
-			MeshPrimitive_Quads,
+			MeshPrimitive_Quads
 		} MeshPrimitive_t;
 
 		typedef struct
