@@ -11,6 +11,52 @@ namespace Gamma
 {
 	namespace Renderer
 	{
+		typedef enum
+		{
+			RendererFeature_Blending,
+			RendererFeature_DepthTesting,
+			RendererFeature_StencilTesting
+		} RendererFeature_t;
+
+		typedef enum
+		{
+			RendererBlendFunction_Zero,
+			RendererBlendFunction_One,
+			RendererBlendFunction_SourceColor,
+			RendererBlendFunction_OneMinusSourceColor,
+			RendererBlendFunction_DestinationColor,
+			RendererBlendFunction_OneMinusDestinationColor,
+			RendererBlendFunction_SourceAlpha,
+			RendererBlendFunction_OneMinusSourceAlpha,
+			RendererBlendFunction_DestinationAlpha,
+			RendererBlendFunction_OneMinusDestinationAlpha,
+			RendererBlendFunction_SourceAlphaSaturate
+		} RendererBlendFunction_t;
+
+		typedef enum
+		{
+			RendererBoolFunction_Never,
+			RendererBoolFunction_Always,
+			RendererBoolFunction_Equal,
+			RendererBoolFunction_NotEqual,
+			RendererBoolFunction_Less,
+			RendererBoolFunction_LessOrEqual,
+			RendererBoolFunction_Greater,
+			RendererBoolFunction_GreaterOrEqual
+		} RendererBoolFunction_t;
+
+		typedef enum
+		{
+			RendererStencilOperation_Keep,
+			RendererStencilOperation_Zero,
+			RendererStencilOperation_Replace,
+			RendererStencilOperation_Increment,
+			RendererStencilOperation_IncrementWrap,
+			RendererStencilOperation_Decrement,
+			RendererStencilOperation_DecrementWrap,
+			RendererStencilOperation_Invert
+		} RendererStencilOperation_t;
+
 		class IRenderer
 		{
 		public:
@@ -30,11 +76,13 @@ namespace Gamma
 
 			virtual bool update() = 0;
 
-			virtual void enableDepthTesting() = 0;
-			virtual void disableDepthTesting() = 0;
+			virtual void enableFeature(RendererFeature_t feature) = 0;
+			virtual void disableFeature(RendererFeature_t feature) = 0;
 
-			virtual void enableBlending() = 0;
-			virtual void disableBlending() = 0;
+			virtual void setBlendFunction(RendererBlendFunction_t sourceFunction, RendererBlendFunction_t destinationFunction) = 0;
+			virtual void setDepthFunction(RendererBoolFunction_t depthFunction) = 0;
+			virtual void setStencilFunction(RendererBoolFunction_t stencilFunction, int reference, unsigned int mask) = 0;
+			virtual void setStencilOperation(RendererStencilOperation_t stencilFail, RendererStencilOperation_t depthFail, RendererStencilOperation_t pass) = 0;
 
 			virtual void clear(float r, float g, float b, float a) = 0;
 		};

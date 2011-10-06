@@ -29,11 +29,13 @@ namespace Gamma
 
 			bool update();
 
-			void enableDepthTesting();
-			void disableDepthTesting();
+			void enableFeature(RendererFeature_t feature);
+			void disableFeature(RendererFeature_t feature);
 
-			void enableBlending();
-			void disableBlending();
+			void setBlendFunction(RendererBlendFunction_t sourceFunction, RendererBlendFunction_t destinationFunction);
+			void setDepthFunction(RendererBoolFunction_t depthFunction);
+			void setStencilFunction(RendererBoolFunction_t stencilFunction, int reference, unsigned int mask);
+			void setStencilOperation(RendererStencilOperation_t stencilFail, RendererStencilOperation_t depthFail, RendererStencilOperation_t pass);
 
 			void clear(float r, float g, float b, float a);
 		private:
