@@ -30,11 +30,16 @@ namespace Gamma
 			void rotateMatrix(float angle, float x, float y, float z);
 			void scaleMatrix(float x, float y, float z);
 
-			const glm::mat4 &makeFinalMatrix();
+			const glm::mat4 &getModelMatrix();
+			const glm::mat4 &getViewMatrix();
+			const glm::mat4 &getProjectionMatrix();
 		private:
 			MatrixStackMatrix_t m_matrix;
 			std::stack<glm::mat4> m_matrices[3];
-			glm::mat4 m_mvpMatrix;
+
+			glm::mat4 m_modelMatrix;
+			glm::mat4 m_viewMatrix;
+			glm::mat4 m_projectionMatrix;
 		};
 	}
 }

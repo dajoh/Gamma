@@ -79,10 +79,22 @@ namespace Gamma
 			m_matrices[m_matrix].top() = glm::scale(m_matrices[m_matrix].top(), glm::vec3(x, y, z));
 		}
 
-		const glm::mat4 &MatrixStack::makeFinalMatrix()
+		const glm::mat4 &MatrixStack::getModelMatrix()
 		{
-			m_mvpMatrix = m_matrices[2].top() * m_matrices[1].top() * m_matrices[0].top();
-			return m_mvpMatrix;
+			m_modelMatrix = m_matrices[0].top();
+			return m_modelMatrix;
+		}
+
+		const glm::mat4 &MatrixStack::getViewMatrix()
+		{
+			m_viewMatrix = m_matrices[1].top();
+			return m_viewMatrix;
+		}
+
+		const glm::mat4 &MatrixStack::getProjectionMatrix()
+		{
+			m_projectionMatrix = m_matrices[2].top();
+			return m_projectionMatrix;
 		}
 	}
 }

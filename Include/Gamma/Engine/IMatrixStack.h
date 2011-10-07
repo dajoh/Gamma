@@ -33,7 +33,9 @@ namespace Gamma
 			virtual void rotateMatrix(float angle, float x, float y, float z) = 0;
 			virtual void scaleMatrix(float x, float y, float z) = 0;
 
-			virtual const glm::mat4 &makeFinalMatrix() = 0;
+			virtual const glm::mat4 &getModelMatrix() = 0;
+			virtual const glm::mat4 &getViewMatrix() = 0;
+			virtual const glm::mat4 &getProjectionMatrix() = 0;
 		};
 	}
 }

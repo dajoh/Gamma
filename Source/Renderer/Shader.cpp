@@ -86,10 +86,10 @@ namespace Gamma
 			glAttachShader(m_program, m_fragmentShader);
 
 			// Set up vertex attributes.
-			glBindAttribLocation(m_program, 0, "in_position");
-			glBindAttribLocation(m_program, 1, "in_texCoord");
-			glBindAttribLocation(m_program, 2, "in_normal");
-			glBindAttribLocation(m_program, 3, "in_color");
+			glBindAttribLocation(m_program, 0, "in_Position");
+			glBindAttribLocation(m_program, 1, "in_TexCoord");
+			glBindAttribLocation(m_program, 2, "in_Normal");
+			glBindAttribLocation(m_program, 3, "in_Color");
 
 			// Check for link errors.
 			int linkStatus;
