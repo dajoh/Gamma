@@ -9,7 +9,7 @@ namespace Gamma
 		{
 			TgaFormat_G8,
 			TgaFormat_R8G8B8,
-			TgaFormat_R8G8B8A8,
+			TgaFormat_R8G8B8A8
 		} TgaFormat_t;
 
 		class TgaLoader

@@ -18,6 +18,7 @@ namespace Gamma
 			virtual void setUniformFloat(const char *name, float value) = 0;
 			virtual void setUniformVector2(const char *name, const glm::vec2 &value) = 0;
 			virtual void setUniformVector3(const char *name, const glm::vec3 &value) = 0;
+			virtual void setUniformMatrix3(const char *name, const glm::mat3 &value) = 0;
 			virtual void setUniformMatrix4(const char *name, const glm::mat4 &value) = 0;
 			virtual void setUniformIntArray(const char *name, unsigned int count, const int *value) = 0;
 			virtual void setUniformFloatArray(const char *name, unsigned int count, const float *value) = 0;

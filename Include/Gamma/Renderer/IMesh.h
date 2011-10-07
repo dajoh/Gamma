@@ -14,13 +14,13 @@ namespace Gamma
 
 		typedef enum
 		{
-			MeshPrimitive_Points,
-			MeshPrimitive_Lines,
-			MeshPrimitive_LineStrip,
-			MeshPrimitive_Triangles,
-			MeshPrimitive_TriangleStrip,
-			MeshPrimitive_Quads
-		} MeshPrimitive_t;
+			Primitive_Points,
+			Primitive_Lines,
+			Primitive_LineStrip,
+			Primitive_Triangles,
+			Primitive_TriangleStrip,
+			Primitive_Quads
+		} Primitive_t;
 
 		typedef struct
 		{
@@ -41,11 +41,11 @@ namespace Gamma
 			virtual bool hasVertices() const = 0;
 			virtual bool hasIndices() const = 0;
 
-			virtual void drawVertices(MeshPrimitive_t primitive, unsigned int vertexCount) = 0;
-			virtual void drawIndices(MeshPrimitive_t primitive, unsigned int indexCount) = 0;
+			virtual void drawVertices(Primitive_t primitive, unsigned int vertexCount) = 0;
+			virtual void drawIndices(Primitive_t primitive, unsigned int indexCount) = 0;
 
-			virtual void drawVerticesInstanced(MeshPrimitive_t primitive, unsigned int vertexCount, unsigned int instances) = 0;
-			virtual void drawIndicesInstanced(MeshPrimitive_t primitive, unsigned int indexCount, unsigned int instances) = 0;
+			virtual void drawVerticesInstanced(Primitive_t primitive, unsigned int vertexCount, unsigned int instances) = 0;
+			virtual void drawIndicesInstanced(Primitive_t primitive, unsigned int indexCount, unsigned int instances) = 0;
 		};
 	}
 }

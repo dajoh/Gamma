@@ -20,11 +20,11 @@ namespace Gamma
 			bool hasVertices() const;
 			bool hasIndices() const;
 
-			void drawVertices(MeshPrimitive_t primitive, unsigned int vertexCount);
-			void drawIndices(MeshPrimitive_t primitive, unsigned int indexCount);
+			void drawVertices(Primitive_t primitive, unsigned int vertexCount);
+			void drawIndices(Primitive_t primitive, unsigned int indexCount);
 
-			void drawVerticesInstanced(MeshPrimitive_t primitive, unsigned int vertexCount, unsigned int instances);
-			void drawIndicesInstanced(MeshPrimitive_t primitive, unsigned int indexCount, unsigned int instances);
+			void drawVerticesInstanced(Primitive_t primitive, unsigned int vertexCount, unsigned int instances);
+			void drawIndicesInstanced(Primitive_t primitive, unsigned int indexCount, unsigned int instances);
 		private:
 			GLuint m_vertexArray;
 			GLuint m_vertexBuffer;

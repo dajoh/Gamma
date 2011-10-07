@@ -89,7 +89,7 @@ namespace Gamma
 				return;
 			}
 
-			m_mesh->drawIndices(Renderer::MeshPrimitive_Triangles, m_indexCount);
+			m_mesh->drawIndices(Renderer::Primitive_Triangles, m_indexCount);
 		}
 
 		void Model::drawInstanced(unsigned int instances)
@@ -99,7 +99,7 @@ namespace Gamma
 				return;
 			}
 
-			m_mesh->drawIndicesInstanced(Renderer::MeshPrimitive_Triangles, m_indexCount, instances);
+			m_mesh->drawIndicesInstanced(Renderer::Primitive_Triangles, m_indexCount, instances);
 		}
 	}
 }

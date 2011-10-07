@@ -20,21 +20,21 @@ namespace Gamma
 			}
 		}
 
-		static inline GLenum getGlMode(MeshPrimitive_t primitive)
+		static inline GLenum getGlMode(Primitive_t primitive)
 		{
 			switch(primitive)
 			{
-			case MeshPrimitive_Points:
+			case Primitive_Points:
 				return GL_POINTS;
-			case MeshPrimitive_Lines:
+			case Primitive_Lines:
 				return GL_LINES;
-			case MeshPrimitive_LineStrip:
+			case Primitive_LineStrip:
 				return GL_LINE_STRIP;
-			case MeshPrimitive_Triangles:
+			case Primitive_Triangles:
 				return GL_TRIANGLES;
-			case MeshPrimitive_TriangleStrip:
+			case Primitive_TriangleStrip:
 				return GL_TRIANGLE_STRIP;
-			case MeshPrimitive_Quads:
+			case Primitive_Quads:
 				return GL_QUADS;
 			default:
 				return 0;
@@ -105,7 +105,7 @@ namespace Gamma
 			return m_hasIndices;
 		}
 
-		void Mesh::drawVertices(MeshPrimitive_t primitive, unsigned int vertexCount)
+		void Mesh::drawVertices(Primitive_t primitive, unsigned int vertexCount)
 		{
 			if(!m_hasVertices)
 			{
@@ -123,7 +123,7 @@ namespace Gamma
 			glDrawArrays(mode, 0, vertexCount);
 		}
 
-		void Mesh::drawIndices(MeshPrimitive_t primitive, unsigned int indexCount)
+		void Mesh::drawIndices(Primitive_t primitive, unsigned int indexCount)
 		{
 			if(!m_hasVertices || !m_hasIndices)
 			{
@@ -142,7 +142,7 @@ namespace Gamma
 			glDrawElements(mode, indexCount, GL_UNSIGNED_INT, NULL);
 		}
 
-		void Mesh::drawVerticesInstanced(MeshPrimitive_t primitive, unsigned int vertexCount, unsigned int instances)
+		void Mesh::drawVerticesInstanced(Primitive_t primitive, unsigned int vertexCount, unsigned int instances)
 		{
 			if(!m_hasVertices)
 			{
@@ -160,7 +160,7 @@ namespace Gamma
 			glDrawArraysInstanced(mode, 0, vertexCount, instances);
 		}
 
-		void Mesh::drawIndicesInstanced(MeshPrimitive_t primitive, unsigned int indexCount, unsigned int instances)
+		void Mesh::drawIndicesInstanced(Primitive_t primitive, unsigned int indexCount, unsigned int instances)
 		{
 			if(!m_hasVertices || !m_hasIndices)
 			{

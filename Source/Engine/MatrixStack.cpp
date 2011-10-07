@@ -5,11 +5,11 @@ namespace Gamma
 {
 	namespace Engine
 	{
-		MatrixStack::MatrixStack() : m_matrix(MatrixStackMatrix_Model)
+		MatrixStack::MatrixStack() : m_matrix(MatrixType_Model)
 		{
-			m_matrices[0].push(glm::mat4(1.0f));
-			m_matrices[1].push(glm::mat4(1.0f));
-			m_matrices[2].push(glm::mat4(1.0f));
+			m_matrices[MatrixType_Model].push(glm::mat4(1.0f));
+			m_matrices[MatrixType_View].push(glm::mat4(1.0f));
+			m_matrices[MatrixType_Projection].push(glm::mat4(1.0f));
 		}
 
 		MatrixStack::~MatrixStack()
@@ -17,15 +17,15 @@ namespace Gamma
 
 		}
 
-		void MatrixStack::setMatrix(MatrixStackMatrix_t matrix)
+		void MatrixStack::setActiveMatrix(MatrixType_t matrix)
 		{
-			if(matrix >= MatrixStackMatrix_Model && matrix <= MatrixStackMatrix_Projection)
+			if(matrix >= MatrixType_Model && matrix <= MatrixType_Projection)
 			{
 				m_matrix = matrix;
 			}
 		}
 
-		MatrixStackMatrix_t MatrixStack::getMatrix() const
+		MatrixType_t MatrixStack::getActiveMatrix() const
 		{
 			return m_matrix;
 		}
@@ -44,14 +44,14 @@ namespace Gamma
 			}
 		}
 
-		void MatrixStack::makeMatrixIdentity()
-		{
-			m_matrices[m_matrix].top() = glm::mat4(1.0f);
-		}
-
 		bool MatrixStack::isMatrixIdentity() const
 		{
 			return m_matrices[m_matrix].top() == glm::mat4(1.0f);
+		}
+
+		void MatrixStack::makeIdentityMatrix()
+		{
+			m_matrices[m_matrix].top() = glm::mat4(1.0f);
 		}
 
 		void MatrixStack::makePerspectiveMatrix(float fov, float width, float height, float near, float far)
@@ -81,20 +81,26 @@ namespace Gamma
 
 		const glm::mat4 &MatrixStack::getModelMatrix()
 		{
-			m_modelMatrix = m_matrices[0].top();
+			m_modelMatrix = m_matrices[MatrixType_Model].top();
 			return m_modelMatrix;
 		}
 
 		const glm::mat4 &MatrixStack::getViewMatrix()
 		{
-			m_viewMatrix = m_matrices[1].top();
+			m_viewMatrix = m_matrices[MatrixType_View].top();
 			return m_viewMatrix;
 		}
 
 		const glm::mat4 &MatrixStack::getProjectionMatrix()
 		{
-			m_projectionMatrix = m_matrices[2].top();
+			m_projectionMatrix = m_matrices[MatrixType_Projection].top();
 			return m_projectionMatrix;
+		}
+
+		const glm::mat3 &MatrixStack::getNormalMatrix()
+		{
+			m_normalMatrix = glm::transpose(glm::inverse(glm::mat3(m_matrices[MatrixType_View].top() * m_matrices[MatrixType_Model].top())));
+			return m_normalMatrix;
 		}
 	}
 }

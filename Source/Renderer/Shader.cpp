@@ -183,6 +183,20 @@ namespace Gamma
 			}
 		}
 
+		void Shader::setUniformMatrix3(const char *name, const glm::mat3 &value)
+		{
+			if(!m_loaded)
+			{
+				return;
+			}
+
+			GLint location = glGetUniformLocation(m_program, name);
+			if(location != -1)
+			{
+				glUniformMatrix3fv(location, 1, GL_FALSE, &value[0][0]);
+			}
+		}
+
 		void Shader::setUniformMatrix4(const char *name, const glm::mat4 &value)
 		{
 			if(!m_loaded)

@@ -14,15 +14,14 @@ namespace Gamma
 			MatrixStack();
 			~MatrixStack();
 
-			void setMatrix(MatrixStackMatrix_t matrix);
-			MatrixStackMatrix_t getMatrix() const;
+			void setActiveMatrix(MatrixType_t matrix);
+			MatrixType_t getActiveMatrix() const;
 
 			void pushMatrix();
 			void popMatrix();
-
-			void makeMatrixIdentity();
 			bool isMatrixIdentity() const;
 
+			void makeIdentityMatrix();
 			void makePerspectiveMatrix(float fov, float width, float height, float near, float far);
 			void makeOrthogonalMatrix(float left, float right, float bottom, float top, float near, float far);
 
@@ -33,13 +32,14 @@ namespace Gamma
 			const glm::mat4 &getModelMatrix();
 			const glm::mat4 &getViewMatrix();
 			const glm::mat4 &getProjectionMatrix();
+			const glm::mat3 &getNormalMatrix();
 		private:
-			MatrixStackMatrix_t m_matrix;
-			std::stack<glm::mat4> m_matrices[3];
-
+			MatrixType_t m_matrix;
+			std::stack<glm::mat4> m_matrices[MatrixType_Projection + 1];
 			glm::mat4 m_modelMatrix;
 			glm::mat4 m_viewMatrix;
 			glm::mat4 m_projectionMatrix;
+			glm::mat3 m_normalMatrix;
 		};
 	}
 }
