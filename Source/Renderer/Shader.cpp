@@ -94,7 +94,7 @@ namespace Gamma
 					break;
 				}
 
-				glBindAttribLocation(m_program, attributes[i].meshIndex, attributes[i].name);
+				glBindAttribLocation(m_program, attributes[i].meshAttributeIndex, attributes[i].name);
 			}
 
 			// Check for link errors.
