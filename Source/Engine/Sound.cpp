@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <Gamma/Utilities/Debug.h>
 #include <Gamma/Audio/IAudio.h>
 #include "WavLoader.h"

@@ -22,24 +22,25 @@ namespace Gamma
 			bool isMatrixIdentity() const;
 
 			void makeIdentityMatrix();
-			void makePerspectiveMatrix(float fov, float width, float height, float near, float far);
-			void makeOrthogonalMatrix(float left, float right, float bottom, float top, float near, float far);
+			void makePerspectiveMatrix(float fov, float width, float height, float zNear, float zFar);
+			void makeOrthogonalMatrix(float left, float right, float bottom, float top, float zNear, float zFar);
 
-			void translateMatrix(float x, float y, float z);
-			void rotateMatrix(float angle, float x, float y, float z);
-			void scaleMatrix(float x, float y, float z);
+			void translateMatrix(const Math::Vector3 &vector);
+			void rotateMatrix(float angle, const Math::Vector3 &vector);
+			void scaleMatrix(const Math::Vector3 &vector);
 
-			const glm::mat4 &getModelMatrix();
-			const glm::mat4 &getViewMatrix();
-			const glm::mat4 &getProjectionMatrix();
-			const glm::mat3 &getNormalMatrix();
+			const Math::Matrix4 &getModelMatrix();
+			const Math::Matrix4 &getViewMatrix();
+			const Math::Matrix4 &getProjectionMatrix();
+			const Math::Matrix3 &getNormalMatrix();
 		private:
 			MatrixType_t m_matrix;
-			std::stack<glm::mat4> m_matrices[MatrixType_Projection + 1];
-			glm::mat4 m_modelMatrix;
-			glm::mat4 m_viewMatrix;
-			glm::mat4 m_projectionMatrix;
-			glm::mat3 m_normalMatrix;
+			std::stack<Math::Matrix4> m_matrices[MatrixType_Projection + 1];
+
+			Math::Matrix4 m_modelMatrix;
+			Math::Matrix4 m_viewMatrix;
+			Math::Matrix4 m_projectionMatrix;
+			Math::Matrix3 m_normalMatrix;
 		};
 	}
 }

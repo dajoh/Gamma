@@ -1,4 +1,3 @@
-#include <glm/gtc/matrix_transform.hpp>
 #include "MatrixStack.h"
 
 namespace Gamma
@@ -7,9 +6,9 @@ namespace Gamma
 	{
 		MatrixStack::MatrixStack() : m_matrix(MatrixType_Model)
 		{
-			m_matrices[MatrixType_Model].push(glm::mat4(1.0f));
-			m_matrices[MatrixType_View].push(glm::mat4(1.0f));
-			m_matrices[MatrixType_Projection].push(glm::mat4(1.0f));
+			m_matrices[MatrixType_Model].push(Math::Matrix4(1.0f));
+			m_matrices[MatrixType_View].push(Math::Matrix4(1.0f));
+			m_matrices[MatrixType_Projection].push(Math::Matrix4(1.0f));
 		}
 
 		MatrixStack::~MatrixStack()
@@ -32,7 +31,7 @@ namespace Gamma
 
 		void MatrixStack::pushMatrix()
 		{
-			glm::mat4 top = m_matrices[m_matrix].top();
+			Math::Matrix4 top = m_matrices[m_matrix].top();
 			m_matrices[m_matrix].push(top);
 		}
 
@@ -46,60 +45,60 @@ namespace Gamma
 
 		bool MatrixStack::isMatrixIdentity() const
 		{
-			return m_matrices[m_matrix].top() == glm::mat4(1.0f);
+			return m_matrices[m_matrix].top() == Math::Matrix4(1.0f);
 		}
 
 		void MatrixStack::makeIdentityMatrix()
 		{
-			m_matrices[m_matrix].top() = glm::mat4(1.0f);
+			m_matrices[m_matrix].top() = Math::Matrix4(1.0f);
 		}
 
-		void MatrixStack::makePerspectiveMatrix(float fov, float width, float height, float near, float far)
+		void MatrixStack::makePerspectiveMatrix(float fov, float width, float height, float zNear, float zFar)
 		{
-			m_matrices[m_matrix].top() = glm::perspectiveFov(fov, width, height, near, far);
+			m_matrices[m_matrix].top() = Math::makePerspectiveMatrix(fov, width, height, zNear, zFar);
 		}
 
-		void MatrixStack::makeOrthogonalMatrix(float left, float right, float bottom, float top, float near, float far)
+		void MatrixStack::makeOrthogonalMatrix(float left, float right, float bottom, float top, float zNear, float zFar)
 		{
-			m_matrices[m_matrix].top() = glm::ortho(left, right, bottom, top, near, far);
+			m_matrices[m_matrix].top() = Math::makeOrthogonalMatrix(left, right, bottom, top, zNear, zFar);
 		}
 
-		void MatrixStack::translateMatrix(float x, float y, float z)
+		void MatrixStack::translateMatrix(const Math::Vector3 &vector)
 		{
-			m_matrices[m_matrix].top() = glm::translate(m_matrices[m_matrix].top(), glm::vec3(x, y, z));
+			m_matrices[m_matrix].top() = Math::translateMatrix(m_matrices[m_matrix].top(), vector);
 		}
 
-		void MatrixStack::rotateMatrix(float angle, float x, float y, float z)
+		void MatrixStack::rotateMatrix(float angle, const Math::Vector3 &vector)
 		{
-			m_matrices[m_matrix].top() = glm::rotate(m_matrices[m_matrix].top(), angle, glm::vec3(x, y, z));
+			m_matrices[m_matrix].top() = Math::rotateMatrix(m_matrices[m_matrix].top(), angle, vector);
 		}
 
-		void MatrixStack::scaleMatrix(float x, float y, float z)
+		void MatrixStack::scaleMatrix(const Math::Vector3 &vector)
 		{
-			m_matrices[m_matrix].top() = glm::scale(m_matrices[m_matrix].top(), glm::vec3(x, y, z));
+			m_matrices[m_matrix].top() = Math::scaleMatrix(m_matrices[m_matrix].top(), vector);
 		}
 
-		const glm::mat4 &MatrixStack::getModelMatrix()
+		const Math::Matrix4 &MatrixStack::getModelMatrix()
 		{
 			m_modelMatrix = m_matrices[MatrixType_Model].top();
 			return m_modelMatrix;
 		}
 
-		const glm::mat4 &MatrixStack::getViewMatrix()
+		const Math::Matrix4 &MatrixStack::getViewMatrix()
 		{
 			m_viewMatrix = m_matrices[MatrixType_View].top();
 			return m_viewMatrix;
 		}
 
-		const glm::mat4 &MatrixStack::getProjectionMatrix()
+		const Math::Matrix4 &MatrixStack::getProjectionMatrix()
 		{
 			m_projectionMatrix = m_matrices[MatrixType_Projection].top();
 			return m_projectionMatrix;
 		}
 
-		const glm::mat3 &MatrixStack::getNormalMatrix()
+		const Math::Matrix3 &MatrixStack::getNormalMatrix()
 		{
-			m_normalMatrix = glm::transpose(glm::inverse(glm::mat3(m_matrices[MatrixType_View].top() * m_matrices[MatrixType_Model].top())));
+			m_normalMatrix = Math::transposeMatrix(Math::invertMatrix(Math::Matrix3(m_matrices[MatrixType_View].top() * m_matrices[MatrixType_Model].top())));
 			return m_normalMatrix;
 		}
 	}

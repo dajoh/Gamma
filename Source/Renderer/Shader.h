@@ -20,10 +20,10 @@ namespace Gamma
 
 			void setUniformInt(const char *name, int value);
 			void setUniformFloat(const char *name, float value);
-			void setUniformVector2(const char *name, const glm::vec2 &value);
-			void setUniformVector3(const char *name, const glm::vec3 &value);
-			void setUniformMatrix3(const char *name, const glm::mat3 &value);
-			void setUniformMatrix4(const char *name, const glm::mat4 &value);
+			void setUniformVector3(const char *name, const Math::Vector3 &value);
+			void setUniformVector4(const char *name, const Math::Vector4 &value);
+			void setUniformMatrix3(const char *name, const Math::Matrix3 &value);
+			void setUniformMatrix4(const char *name, const Math::Matrix4 &value);
 			void setUniformIntArray(const char *name, unsigned int count, const int *value);
 			void setUniformFloatArray(const char *name, unsigned int count, const float *value);
 			void setFragmentLocation(const char *name, int fragmentIndex);

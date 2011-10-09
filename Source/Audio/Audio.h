@@ -24,9 +24,9 @@ namespace Gamma
 			void destroyBuffer(IBuffer *buffer);
 			void destroySource(ISource *source);
 
-			void setListenerPosition(const glm::vec3 &position);
-			void setListenerVelocity(const glm::vec3 &velocity);
-			void setListenerOrientation(const glm::vec3 &forward, const glm::vec3 &up);
+			void setListenerPosition(const Math::Vector3 &position);
+			void setListenerVelocity(const Math::Vector3 &velocity);
+			void setListenerOrientation(const Math::Vector3 &forward, const Math::Vector3 &up);
 
 			bool update();
 		private:

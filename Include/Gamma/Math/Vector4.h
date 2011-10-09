@@ -82,67 +82,67 @@ namespace Gamma
 			return (&x)[index];
 		}
 
-		bool Vector4::operator==(const Vector4 &other) const
+		inline bool Vector4::operator==(const Vector4 &other) const
 		{
 			return ((x == other.x) && (y == other.y) && (z == other.z) && (w == other.w));
 		}
 
-		bool Vector4::operator!=(const Vector4 &other) const
+		inline bool Vector4::operator!=(const Vector4 &other) const
 		{
 			return ((x != other.x) || (y != other.y) || (z != other.z) || (w != other.w));
 		}
 
-		Vector4 Vector4::operator+() const
+		inline Vector4 Vector4::operator+() const
 		{
 			return Vector4(+x, +y, +z, +w);
 		}
 
-		Vector4 Vector4::operator-() const
+		inline Vector4 Vector4::operator-() const
 		{
 			return Vector4(-x, -y, -z, -w);
 		}
 
-		Vector4 Vector4::operator+(float scalar) const
+		inline Vector4 Vector4::operator+(float scalar) const
 		{
 			return Vector4(x + scalar, y + scalar, z + scalar, w + scalar);
 		}
 
-		Vector4 Vector4::operator-(float scalar) const
+		inline Vector4 Vector4::operator-(float scalar) const
 		{
 			return Vector4(x - scalar, y - scalar, z - scalar, w - scalar);
 		}
 
-		Vector4 Vector4::operator*(float scalar) const
+		inline Vector4 Vector4::operator*(float scalar) const
 		{
 			return Vector4(x * scalar, y * scalar, z * scalar, w * scalar);
 		}
 
-		Vector4 Vector4::operator/(float scalar) const
+		inline Vector4 Vector4::operator/(float scalar) const
 		{
 			return Vector4(x / scalar, y / scalar, z / scalar, w / scalar);
 		}
 
-		Vector4 Vector4::operator+(const Vector4 &other) const
+		inline Vector4 Vector4::operator+(const Vector4 &other) const
 		{
 			return Vector4(x + other.x, y + other.y, z + other.z, w + other.w);
 		}
 
-		Vector4 Vector4::operator-(const Vector4 &other) const
+		inline Vector4 Vector4::operator-(const Vector4 &other) const
 		{
 			return Vector4(x - other.x, y - other.y, z - other.z, w - other.w);
 		}
 
-		Vector4 Vector4::operator*(const Vector4 &other) const
+		inline Vector4 Vector4::operator*(const Vector4 &other) const
 		{
 			return Vector4(x * other.x, y * other.y, z * other.z, w * other.w);
 		}
 
-		Vector4 Vector4::operator/(const Vector4 &other) const
+		inline Vector4 Vector4::operator/(const Vector4 &other) const
 		{
 			return Vector4(x / other.x, y / other.y, z / other.z, w / other.w);
 		}
 
-		const Vector4 &Vector4::operator=(const Vector4 &other)
+		inline const Vector4 &Vector4::operator=(const Vector4 &other)
 		{
 			x = other.x;
 			y = other.y;
@@ -151,7 +151,7 @@ namespace Gamma
 			return *this;
 		}
 
-		const Vector4 &Vector4::operator+=(float scalar)
+		inline const Vector4 &Vector4::operator+=(float scalar)
 		{
 			x += scalar;
 			y += scalar;
@@ -160,7 +160,7 @@ namespace Gamma
 			return *this;
 		}
 
-		const Vector4 &Vector4::operator-=(float scalar)
+		inline const Vector4 &Vector4::operator-=(float scalar)
 		{
 			x -= scalar;
 			y -= scalar;
@@ -169,7 +169,7 @@ namespace Gamma
 			return *this;
 		}
 
-		const Vector4 &Vector4::operator*=(float scalar)
+		inline const Vector4 &Vector4::operator*=(float scalar)
 		{
 			x *= scalar;
 			y *= scalar;
@@ -178,7 +178,7 @@ namespace Gamma
 			return *this;
 		}
 
-		const Vector4 &Vector4::operator/=(float scalar)
+		inline const Vector4 &Vector4::operator/=(float scalar)
 		{
 			x /= scalar;
 			y /= scalar;
@@ -187,7 +187,7 @@ namespace Gamma
 			return *this;
 		}
 
-		const Vector4 &Vector4::operator+=(const Vector4 &other)
+		inline const Vector4 &Vector4::operator+=(const Vector4 &other)
 		{
 			x += other.x;
 			y += other.y;
@@ -196,7 +196,7 @@ namespace Gamma
 			return *this;
 		}
 
-		const Vector4 &Vector4::operator-=(const Vector4 &other)
+		inline const Vector4 &Vector4::operator-=(const Vector4 &other)
 		{
 			x -= other.x;
 			y -= other.y;
@@ -205,7 +205,7 @@ namespace Gamma
 			return *this;
 		}
 
-		const Vector4 &Vector4::operator*=(const Vector4 &other)
+		inline const Vector4 &Vector4::operator*=(const Vector4 &other)
 		{
 			x *= other.x;
 			y *= other.y;
@@ -214,7 +214,7 @@ namespace Gamma
 			return *this;
 		}
 
-		const Vector4 &Vector4::operator/=(const Vector4 &other)
+		inline const Vector4 &Vector4::operator/=(const Vector4 &other)
 		{
 			x /= other.x;
 			y /= other.y;

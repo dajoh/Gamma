@@ -155,7 +155,7 @@ namespace Gamma
 			}
 		}
 
-		void Shader::setUniformVector2(const char *name, const glm::vec2 &value)
+		void Shader::setUniformVector3(const char *name, const Math::Vector3 &value)
 		{
 			if(!m_loaded)
 			{
@@ -169,7 +169,7 @@ namespace Gamma
 			}
 		}
 
-		void Shader::setUniformVector3(const char *name, const glm::vec3 &value)
+		void Shader::setUniformVector4(const char *name, const Math::Vector4 &value)
 		{
 			if(!m_loaded)
 			{
@@ -183,7 +183,7 @@ namespace Gamma
 			}
 		}
 
-		void Shader::setUniformMatrix3(const char *name, const glm::mat3 &value)
+		void Shader::setUniformMatrix3(const char *name, const Math::Matrix3 &value)
 		{
 			if(!m_loaded)
 			{
@@ -197,7 +197,7 @@ namespace Gamma
 			}
 		}
 
-		void Shader::setUniformMatrix4(const char *name, const glm::mat4 &value)
+		void Shader::setUniformMatrix4(const char *name, const Math::Matrix4 &value)
 		{
 			if(!m_loaded)
 			{

@@ -1,7 +1,6 @@
 #ifndef GAMMA_ENGINE_IENGINE_H
 #define GAMMA_ENGINE_IENGINE_H
 
-#include <glm/glm.hpp>
 #include "Platform.h"
 #include "IMatrixStack.h"
 #include "ISound.h"

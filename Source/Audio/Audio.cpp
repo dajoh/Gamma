@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <Gamma/Utilities/Debug.h>
 #include "Audio.h"
 #include "Buffer.h"
@@ -113,7 +114,7 @@ namespace Gamma
 			delete (Source *)source;
 		}
 
-		void Audio::setListenerPosition(const glm::vec3 &position)
+		void Audio::setListenerPosition(const Math::Vector3 &position)
 		{
 			if(!m_initialized)
 			{
@@ -123,7 +124,7 @@ namespace Gamma
 			alListenerfv(AL_POSITION, &position[0]);
 		}
 
-		void Audio::setListenerVelocity(const glm::vec3 &velocity)
+		void Audio::setListenerVelocity(const Math::Vector3 &velocity)
 		{
 			if(!m_initialized)
 			{
@@ -133,14 +134,14 @@ namespace Gamma
 			alListenerfv(AL_VELOCITY, &velocity[0]);
 		}
 
-		void Audio::setListenerOrientation(const glm::vec3 &forward, const glm::vec3 &up)
+		void Audio::setListenerOrientation(const Math::Vector3 &forward, const Math::Vector3 &up)
 		{
 			if(!m_initialized)
 			{
 				return;
 			}
 
-			ALfloat orientation[6] = {forward[0], forward[1], forward[2], up[0], up[1], up[2]};
+			ALfloat orientation[6] = {forward.x, forward.y, forward.z, up.x, up.y, up.z};
 			alListenerfv(AL_ORIENTATION, orientation);
 		}
 
