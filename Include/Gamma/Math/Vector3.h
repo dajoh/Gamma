@@ -12,6 +12,7 @@ namespace Gamma
 		public:
 			Vector3();
 			Vector3(float s);
+			Vector3(float *data);
 			Vector3(float x, float y, float z);
 			Vector3(const Vector3 &other);
 
@@ -42,8 +43,8 @@ namespace Gamma
 			const Vector3 &operator-=(const Vector3 &other);
 			const Vector3 &operator*=(const Vector3 &other);
 			const Vector3 &operator/=(const Vector3 &other);
-		private:
-			float m_data[3];
+		public:
+			float x, y, z;
 		};
 
 		inline Vector3::Vector3()
@@ -51,177 +52,176 @@ namespace Gamma
 
 		}
 
-		inline Vector3::Vector3(float s)
+		inline Vector3::Vector3(float s) : x(s), y(s), z(s)
 		{
-			m_data[0] = s;
-			m_data[1] = s;
-			m_data[2] = s;
+
 		}
 
-		inline Vector3::Vector3(float x, float y, float z)
+		inline Vector3::Vector3(float *data) : x(data[0]), y(data[1]), z(data[2])
 		{
-			m_data[0] = x;
-			m_data[1] = y;
-			m_data[2] = z;
+
 		}
 
-		inline Vector3::Vector3(const Vector3 &other)
+		inline Vector3::Vector3(float nX, float nY, float nZ) : x(nX), y(nY), z(nZ)
 		{
-			m_data[0] = other.m_data[0];
-			m_data[1] = other.m_data[1];
-			m_data[2] = other.m_data[2];
+
+		}
+
+		inline Vector3::Vector3(const Vector3 &other) : x(other.x), y(other.y), z(other.z)
+		{
+
 		}
 
 		inline float &Vector3::operator[](int index)
 		{
-			return m_data[index];
+			return (&x)[index];
 		}
 
 		inline const float &Vector3::operator[](int index) const
 		{
-			return m_data[index];
+			return (&x)[index];
 		}
 
 		bool Vector3::operator==(const Vector3 &other) const
 		{
-			return ((m_data[0] == other.m_data[0]) && (m_data[1] == other.m_data[1]) && (m_data[2] == other.m_data[2]));
+			return ((x == other.x) && (y == other.y) && (z == other.z));
 		}
 
 		bool Vector3::operator!=(const Vector3 &other) const
 		{
-			return ((m_data[0] != other.m_data[0]) || (m_data[1] != other.m_data[1]) || (m_data[2] != other.m_data[2]));
+			return ((x != other.x) || (y != other.y) || (z != other.z));
 		}
 
 		Vector3 Vector3::operator+() const
 		{
-			return Vector3(+m_data[0], +m_data[1], +m_data[2]);
+			return Vector3(+x, +y, +z);
 		}
 
 		Vector3 Vector3::operator-() const
 		{
-			return Vector3(-m_data[0], -m_data[1], -m_data[2]);
+			return Vector3(-x, -y, -z);
 		}
 
 		Vector3 Vector3::operator+(float scalar) const
 		{
-			return Vector3(m_data[0] + scalar, m_data[1] + scalar, m_data[2] + scalar);
+			return Vector3(x + scalar, y + scalar, z + scalar);
 		}
 
 		Vector3 Vector3::operator-(float scalar) const
 		{
-			return Vector3(m_data[0] - scalar, m_data[1] - scalar, m_data[2] - scalar);
+			return Vector3(x - scalar, y - scalar, z - scalar);
 		}
 
 		Vector3 Vector3::operator*(float scalar) const
 		{
-			return Vector3(m_data[0] * scalar, m_data[1] * scalar, m_data[2] * scalar);
+			return Vector3(x * scalar, y * scalar, z * scalar);
 		}
 
 		Vector3 Vector3::operator/(float scalar) const
 		{
-			return Vector3(m_data[0] / scalar, m_data[1] / scalar, m_data[2] / scalar);
+			return Vector3(x / scalar, y / scalar, z / scalar);
 		}
 
 		Vector3 Vector3::operator+(const Vector3 &other) const
 		{
-			return Vector3(m_data[0] + other.m_data[0], m_data[1] + other.m_data[1], m_data[2] + other.m_data[2]);
+			return Vector3(x + other.x, y + other.y, z + other.z);
 		}
 
 		Vector3 Vector3::operator-(const Vector3 &other) const
 		{
-			return Vector3(m_data[0] - other.m_data[0], m_data[1] - other.m_data[1], m_data[2] - other.m_data[2]);
+			return Vector3(x - other.x, y - other.y, z - other.z);
 		}
 
 		Vector3 Vector3::operator*(const Vector3 &other) const
 		{
-			return Vector3(m_data[0] * other.m_data[0], m_data[1] * other.m_data[1], m_data[2] * other.m_data[2]);
+			return Vector3(x * other.x, y * other.y, z * other.z);
 		}
 
 		Vector3 Vector3::operator/(const Vector3 &other) const
 		{
-			return Vector3(m_data[0] / other.m_data[0], m_data[1] / other.m_data[1], m_data[2] / other.m_data[2]);
+			return Vector3(x / other.x, y / other.y, z / other.z);
 		}
 
 		const Vector3 &Vector3::operator=(const Vector3 &other)
 		{
-			m_data[0] = other.m_data[0];
-			m_data[1] = other.m_data[1];
-			m_data[2] = other.m_data[2];
+			x = other.x;
+			y = other.y;
+			z = other.z;
 			return *this;
 		}
 
 		const Vector3 &Vector3::operator+=(float scalar)
 		{
-			m_data[0] += scalar;
-			m_data[1] += scalar;
-			m_data[2] += scalar;
+			x += scalar;
+			y += scalar;
+			z += scalar;
 			return *this;
 		}
 
 		const Vector3 &Vector3::operator-=(float scalar)
 		{
-			m_data[0] -= scalar;
-			m_data[1] -= scalar;
-			m_data[2] -= scalar;
+			x -= scalar;
+			y -= scalar;
+			z -= scalar;
 			return *this;
 		}
 
 		const Vector3 &Vector3::operator*=(float scalar)
 		{
-			m_data[0] *= scalar;
-			m_data[1] *= scalar;
-			m_data[2] *= scalar;
+			x *= scalar;
+			y *= scalar;
+			z *= scalar;
 			return *this;
 		}
 
 		const Vector3 &Vector3::operator/=(float scalar)
 		{
-			m_data[0] /= scalar;
-			m_data[1] /= scalar;
-			m_data[2] /= scalar;
+			x /= scalar;
+			y /= scalar;
+			z /= scalar;
 			return *this;
 		}
 
 		const Vector3 &Vector3::operator+=(const Vector3 &other)
 		{
-			m_data[0] += other.m_data[0];
-			m_data[1] += other.m_data[1];
-			m_data[2] += other.m_data[2];
+			x += other.x;
+			y += other.y;
+			z += other.z;
 			return *this;
 		}
 
 		const Vector3 &Vector3::operator-=(const Vector3 &other)
 		{
-			m_data[0] -= other.m_data[0];
-			m_data[1] -= other.m_data[1];
-			m_data[2] -= other.m_data[2];
+			x -= other.x;
+			y -= other.y;
+			z -= other.z;
 			return *this;
 		}
 
 		const Vector3 &Vector3::operator*=(const Vector3 &other)
 		{
-			m_data[0] *= other.m_data[0];
-			m_data[1] *= other.m_data[1];
-			m_data[2] *= other.m_data[2];
+			x *= other.x;
+			y *= other.y;
+			z *= other.z;
 			return *this;
 		}
 
 		const Vector3 &Vector3::operator/=(const Vector3 &other)
 		{
-			m_data[0] /= other.m_data[0];
-			m_data[1] /= other.m_data[1];
-			m_data[2] /= other.m_data[2];
+			x /= other.x;
+			y /= other.y;
+			z /= other.z;
 			return *this;
 		}
 
 		inline float dot(const Vector3 &a, const Vector3 &b)
 		{
-			return (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2]);
+			return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
 		}
 
 		inline float length(const Vector3 &a)
 		{
-			return sqrtf((a[0] * a[0]) + (a[1] * a[1]) + (a[2] * a[2]));
+			return sqrtf((a.x * a.x) + (a.y * a.y) + (a.z * a.z));
 		}
 
 		inline float distance(const Vector3 &a, const Vector3 &b)
@@ -231,12 +231,13 @@ namespace Gamma
 
 		inline Vector3 normalize(const Vector3 &a)
 		{
-			return a / length(a);
+			float square = (a.x * a.x) + (a.y * a.y) + (a.z * a.z);
+			return a * (1.0f / sqrtf(square));
 		}
 
 		inline Vector3 cross(const Vector3 &a, const Vector3 &b)
 		{
-			return Vector3(a[1] * b[2] - b[1] * a[2], a[2] * b[0] - b[2] * a[0], a[0] * b[1] - b[0] * a[1]);
+			return Vector3(a.y * b.z - b.y * a.z, a.z * b.x - b.z * a.x, a.x * b.y - b.x * a.y);
 		}
 	}
 }

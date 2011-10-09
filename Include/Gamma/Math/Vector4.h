@@ -12,6 +12,7 @@ namespace Gamma
 		public:
 			Vector4();
 			Vector4(float s);
+			Vector4(float *data);
 			Vector4(float x, float y, float z, float w);
 			Vector4(const Vector4 &other);
 
@@ -42,8 +43,8 @@ namespace Gamma
 			const Vector4 &operator-=(const Vector4 &other);
 			const Vector4 &operator*=(const Vector4 &other);
 			const Vector4 &operator/=(const Vector4 &other);
-		private:
-			float m_data[4];
+		public:
+			float x, y, z, w;
 		};
 
 		inline Vector4::Vector4()
@@ -51,189 +52,185 @@ namespace Gamma
 
 		}
 
-		inline Vector4::Vector4(float s)
+		inline Vector4::Vector4(float s) : x(s), y(s), z(s), w(s)
 		{
-			m_data[0] = s;
-			m_data[1] = s;
-			m_data[2] = s;
-			m_data[3] = s;
+
 		}
 
-		inline Vector4::Vector4(float x, float y, float z, float w)
+		inline Vector4::Vector4(float *data) : x(data[0]), y(data[1]), z(data[2]), w(data[3])
 		{
-			m_data[0] = x;
-			m_data[1] = y;
-			m_data[2] = z;
-			m_data[3] = w;
+
 		}
 
-		inline Vector4::Vector4(const Vector4 &other)
+		inline Vector4::Vector4(float nX, float nY, float nZ, float nW) : x(nX), y(nY), z(nZ), w(nW)
 		{
-			m_data[0] = other.m_data[0];
-			m_data[1] = other.m_data[1];
-			m_data[2] = other.m_data[2];
-			m_data[3] = other.m_data[3];
+
+		}
+
+		inline Vector4::Vector4(const Vector4 &other) : x(other.x), y(other.y), z(other.z), w(other.w)
+		{
+
 		}
 
 		inline float &Vector4::operator[](int index)
 		{
-			return m_data[index];
+			return (&x)[index];
 		}
 
 		inline const float &Vector4::operator[](int index) const
 		{
-			return m_data[index];
+			return (&x)[index];
 		}
 
 		bool Vector4::operator==(const Vector4 &other) const
 		{
-			return ((m_data[0] == other.m_data[0]) && (m_data[1] == other.m_data[1]) && (m_data[2] == other.m_data[2]) && (m_data[3] == other.m_data[3]));
+			return ((x == other.x) && (y == other.y) && (z == other.z) && (w == other.w));
 		}
 
 		bool Vector4::operator!=(const Vector4 &other) const
 		{
-			return ((m_data[0] != other.m_data[0]) || (m_data[1] != other.m_data[1]) || (m_data[2] != other.m_data[2]) || (m_data[3] != other.m_data[3]));
+			return ((x != other.x) || (y != other.y) || (z != other.z) || (w != other.w));
 		}
 
 		Vector4 Vector4::operator+() const
 		{
-			return Vector4(+m_data[0], +m_data[1], +m_data[2], +m_data[3]);
+			return Vector4(+x, +y, +z, +w);
 		}
 
 		Vector4 Vector4::operator-() const
 		{
-			return Vector4(-m_data[0], -m_data[1], -m_data[2], -m_data[3]);
+			return Vector4(-x, -y, -z, -w);
 		}
 
 		Vector4 Vector4::operator+(float scalar) const
 		{
-			return Vector4(m_data[0] + scalar, m_data[1] + scalar, m_data[2] + scalar, m_data[3] + scalar);
+			return Vector4(x + scalar, y + scalar, z + scalar, w + scalar);
 		}
 
 		Vector4 Vector4::operator-(float scalar) const
 		{
-			return Vector4(m_data[0] - scalar, m_data[1] - scalar, m_data[2] - scalar, m_data[3] - scalar);
+			return Vector4(x - scalar, y - scalar, z - scalar, w - scalar);
 		}
 
 		Vector4 Vector4::operator*(float scalar) const
 		{
-			return Vector4(m_data[0] * scalar, m_data[1] * scalar, m_data[2] * scalar, m_data[3] * scalar);
+			return Vector4(x * scalar, y * scalar, z * scalar, w * scalar);
 		}
 
 		Vector4 Vector4::operator/(float scalar) const
 		{
-			return Vector4(m_data[0] / scalar, m_data[1] / scalar, m_data[2] / scalar, m_data[3] / scalar);
+			return Vector4(x / scalar, y / scalar, z / scalar, w / scalar);
 		}
 
 		Vector4 Vector4::operator+(const Vector4 &other) const
 		{
-			return Vector4(m_data[0] + other.m_data[0], m_data[1] + other.m_data[1], m_data[2] + other.m_data[2], m_data[3] + other.m_data[3]);
+			return Vector4(x + other.x, y + other.y, z + other.z, w + other.w);
 		}
 
 		Vector4 Vector4::operator-(const Vector4 &other) const
 		{
-			return Vector4(m_data[0] - other.m_data[0], m_data[1] - other.m_data[1], m_data[2] - other.m_data[2], m_data[3] - other.m_data[3]);
+			return Vector4(x - other.x, y - other.y, z - other.z, w - other.w);
 		}
 
 		Vector4 Vector4::operator*(const Vector4 &other) const
 		{
-			return Vector4(m_data[0] * other.m_data[0], m_data[1] * other.m_data[1], m_data[2] * other.m_data[2], m_data[3] * other.m_data[3]);
+			return Vector4(x * other.x, y * other.y, z * other.z, w * other.w);
 		}
 
 		Vector4 Vector4::operator/(const Vector4 &other) const
 		{
-			return Vector4(m_data[0] / other.m_data[0], m_data[1] / other.m_data[1], m_data[2] / other.m_data[2], m_data[3] / other.m_data[3]);
+			return Vector4(x / other.x, y / other.y, z / other.z, w / other.w);
 		}
 
 		const Vector4 &Vector4::operator=(const Vector4 &other)
 		{
-			m_data[0] = other.m_data[0];
-			m_data[1] = other.m_data[1];
-			m_data[2] = other.m_data[2];
-			m_data[3] = other.m_data[3];
+			x = other.x;
+			y = other.y;
+			z = other.z;
+			w = other.w;
 			return *this;
 		}
 
 		const Vector4 &Vector4::operator+=(float scalar)
 		{
-			m_data[0] += scalar;
-			m_data[1] += scalar;
-			m_data[2] += scalar;
-			m_data[3] += scalar;
+			x += scalar;
+			y += scalar;
+			z += scalar;
+			w += scalar;
 			return *this;
 		}
 
 		const Vector4 &Vector4::operator-=(float scalar)
 		{
-			m_data[0] -= scalar;
-			m_data[1] -= scalar;
-			m_data[2] -= scalar;
-			m_data[3] -= scalar;
+			x -= scalar;
+			y -= scalar;
+			z -= scalar;
+			w -= scalar;
 			return *this;
 		}
 
 		const Vector4 &Vector4::operator*=(float scalar)
 		{
-			m_data[0] *= scalar;
-			m_data[1] *= scalar;
-			m_data[2] *= scalar;
-			m_data[3] *= scalar;
+			x *= scalar;
+			y *= scalar;
+			z *= scalar;
+			w *= scalar;
 			return *this;
 		}
 
 		const Vector4 &Vector4::operator/=(float scalar)
 		{
-			m_data[0] /= scalar;
-			m_data[1] /= scalar;
-			m_data[2] /= scalar;
-			m_data[3] /= scalar;
+			x /= scalar;
+			y /= scalar;
+			z /= scalar;
+			w /= scalar;
 			return *this;
 		}
 
 		const Vector4 &Vector4::operator+=(const Vector4 &other)
 		{
-			m_data[0] += other.m_data[0];
-			m_data[1] += other.m_data[1];
-			m_data[2] += other.m_data[2];
-			m_data[3] += other.m_data[3];
+			x += other.x;
+			y += other.y;
+			z += other.z;
+			w += other.w;
 			return *this;
 		}
 
 		const Vector4 &Vector4::operator-=(const Vector4 &other)
 		{
-			m_data[0] -= other.m_data[0];
-			m_data[1] -= other.m_data[1];
-			m_data[2] -= other.m_data[2];
-			m_data[3] -= other.m_data[3];
+			x -= other.x;
+			y -= other.y;
+			z -= other.z;
+			w -= other.w;
 			return *this;
 		}
 
 		const Vector4 &Vector4::operator*=(const Vector4 &other)
 		{
-			m_data[0] *= other.m_data[0];
-			m_data[1] *= other.m_data[1];
-			m_data[2] *= other.m_data[2];
-			m_data[3] *= other.m_data[3];
+			x *= other.x;
+			y *= other.y;
+			z *= other.z;
+			w *= other.w;
 			return *this;
 		}
 
 		const Vector4 &Vector4::operator/=(const Vector4 &other)
 		{
-			m_data[0] /= other.m_data[0];
-			m_data[1] /= other.m_data[1];
-			m_data[2] /= other.m_data[2];
-			m_data[3] /= other.m_data[3];
+			x /= other.x;
+			y /= other.y;
+			z /= other.z;
+			w /= other.w;
 			return *this;
 		}
 
 		inline float dot(const Vector4 &a, const Vector4 &b)
 		{
-			return (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2]) + (a[3] * b[3]);
+			return (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
 		}
 
 		inline float length(const Vector4 &a)
 		{
-			return sqrtf((a[0] * a[0]) + (a[1] * a[1]) + (a[2] * a[2]) + (a[3] * a[3]));
+			return sqrtf((a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w));
 		}
 
 		inline float distance(const Vector4 &a, const Vector4 &b)
@@ -243,7 +240,8 @@ namespace Gamma
 
 		inline Vector4 normalize(const Vector4 &a)
 		{
-			return a / length(a);
+			float square = (a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w);
+			return a * (1.0f / sqrtf(square));
 		}
 	}
 }
