@@ -26,13 +26,14 @@ namespace Gamma
 			glDeleteProgram(m_program);
 		}
 
-		bool Shader::load(const char *vertexShader, const char *fragmentShader)
+		bool Shader::load(const char *vertexShader, const char *fragmentShader, ShaderAttribute_t *attributes)
 		{
 			if(m_loaded)
 			{
 				return false;
 			}
 
+			// The fragment location has to be set before we link the shader.
 			if(!m_fragmentLocationSet)
 			{
 				Utilities::printDebugString("[Gamma::Renderer::Shader] Fragment location not set for %s.\n", fragmentShader);
@@ -86,10 +87,15 @@ namespace Gamma
 			glAttachShader(m_program, m_fragmentShader);
 
 			// Set up vertex attributes.
-			glBindAttribLocation(m_program, 0, "in_Position");
-			glBindAttribLocation(m_program, 1, "in_TexCoord");
-			glBindAttribLocation(m_program, 2, "in_Normal");
-			glBindAttribLocation(m_program, 3, "in_Color");
+			for(unsigned int i = 0; true; i++)
+			{
+				if(!attributes[i].name)
+				{
+					break;
+				}
+
+				glBindAttribLocation(m_program, attributes[i].meshIndex, attributes[i].name);
+			}
 
 			// Check for link errors.
 			int linkStatus;

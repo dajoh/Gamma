@@ -5,6 +5,13 @@ namespace Gamma
 {
 	namespace Engine
 	{
+		typedef struct
+		{
+			float position[3];
+			float texCoord[2];
+			float normal[3];
+		} ModelVertex_t;
+
 		class IModel
 		{
 		public:

@@ -10,10 +10,16 @@ namespace Gamma
 {
 	namespace Renderer
 	{
+		typedef struct
+		{
+			const char *name;
+			unsigned int meshAttributeIndex;
+		} ShaderAttribute_t;
+
 		class IShader
 		{
 		public:
-			virtual bool load(const char *vertexShader, const char *fragmentShader) = 0;
+			virtual bool load(const char *vertexShader, const char *fragmentShader, ShaderAttribute_t *attributes) = 0;
 			virtual void unload() = 0;
 			virtual bool isLoaded() const = 0;
 

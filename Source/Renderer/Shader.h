@@ -14,7 +14,7 @@ namespace Gamma
 			Shader();
 			~Shader();
 
-			bool load(const char *vertexShader, const char *fragmentShader);
+			bool load(const char *vertexShader, const char *fragmentShader, ShaderAttribute_t *attributes);
 			void unload();
 			bool isLoaded() const;
 

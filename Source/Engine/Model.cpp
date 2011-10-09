@@ -37,22 +37,27 @@ namespace Gamma
 			}
 
 			// Convert the vertices.
-			Renderer::MeshVertex_t *vertices = new Renderer::MeshVertex_t[objLoader.getNumberOfVertices()];
+			ModelVertex_t *vertices = new ModelVertex_t[objLoader.getNumberOfVertices()];
 			for(int i = 0; i < objLoader.getNumberOfVertices(); i++)
 			{
 				memcpy(vertices[i].position, objLoader.getVertexBuffer()[i].position, sizeof(float) * 3);
 				memcpy(vertices[i].texCoord, objLoader.getVertexBuffer()[i].texCoord, sizeof(float) * 2);
 				memcpy(vertices[i].normal, objLoader.getVertexBuffer()[i].normal, sizeof(float) * 3);
-				memset(vertices[i].color, 0, sizeof(float) * 3);
 			}
 
-			// Get the indices.
-			const Renderer::MeshIndex_t *indices = (const Renderer::MeshIndex_t *)objLoader.getIndexBuffer();
+			// Set up the mesh attributes.
+			Renderer::MeshAttribute_t attributes[4] =
+			{
+				{Renderer::MeshDataType_Vector3},
+				{Renderer::MeshDataType_Vector2},
+				{Renderer::MeshDataType_Vector3},
+				{Renderer::MeshDataType_None}
+			};
 
 			// Create the mesh and fill in our vertices and indices.
 			m_mesh = Renderer::getRenderer()->createMesh();
-			m_mesh->fillVertices(vertices, objLoader.getNumberOfVertices(), Renderer::MeshDataUsage_Static);
-			m_mesh->fillIndices(indices, objLoader.getNumberOfIndices(), Renderer::MeshDataUsage_Static);
+			m_mesh->fillVertexBuffer(vertices, sizeof(ModelVertex_t) * objLoader.getNumberOfVertices(), attributes, Renderer::MeshDataUsage_Static);
+			m_mesh->fillIndexBuffer(objLoader.getIndexBuffer(), sizeof(int) * objLoader.getNumberOfIndices(), Renderer::MeshDataType_Uint32, Renderer::MeshDataUsage_Static);
 
 			// Save the index count, we need this to draw the model.
 			m_indexCount = objLoader.getNumberOfIndices();
