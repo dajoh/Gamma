@@ -11,10 +11,12 @@ namespace Gamma
 {
 	namespace Renderer
 	{
-		static inline GLenum getGlFeature(Feature_t feature)
+		static inline GLenum getFeature(Feature_t feature)
 		{
 			switch(feature)
 			{
+			case Feature_Culling:
+				return GL_CULL_FACE;
 			case Feature_Blending:
 				return GL_BLEND;
 			case Feature_DepthTesting:
@@ -26,7 +28,20 @@ namespace Gamma
 			}
 		}
 
-		static inline GLenum getGlBlendFunction(BlendFunction_t blendFunction)
+		static inline GLenum getCullFace(CullFace_t cullFace)
+		{
+			switch(cullFace)
+			{
+			case CullFace_Back:
+				return GL_BACK;
+			case CullFace_Front:
+				return GL_FRONT;
+			default:
+				return 0;
+			}
+		}
+
+		static inline GLenum getBlendFunction(BlendFunction_t blendFunction)
 		{
 			switch(blendFunction)
 			{
@@ -57,7 +72,7 @@ namespace Gamma
 			}
 		}
 
-		static inline GLenum getGlCompareFunction(CompareFunction_t compareFunction)
+		static inline GLenum getCompareFunction(CompareFunction_t compareFunction)
 		{
 			switch(compareFunction)
 			{
@@ -82,7 +97,7 @@ namespace Gamma
 			}
 		}
 
-		static inline GLenum getGlStencilOperation(StencilOperation_t stencilOperation)
+		static inline GLenum getStencilOperation(StencilOperation_t stencilOperation)
 		{
 			switch(stencilOperation)
 			{
@@ -105,6 +120,28 @@ namespace Gamma
 			default:
 				return 0;
 			}
+		}
+
+		static inline GLenum getBuffers(int buffers)
+		{
+			GLenum mask = 0;
+
+			if(buffers & Buffer_Color)
+			{
+				mask |= GL_COLOR_BUFFER_BIT;
+			}
+
+			if(buffers & Buffer_Depth)
+			{
+				mask |= GL_DEPTH_BUFFER_BIT;
+			}
+
+			if(buffers & Buffer_Stencil)
+			{
+				mask |= GL_STENCIL_BUFFER_BIT;
+			}
+
+			return mask;
 		}
 
 		Renderer::Renderer() : m_initialized(false)
@@ -139,6 +176,9 @@ namespace Gamma
 			// Set up the viewport.
 			getWindow()->getSize(&m_lastWidth, &m_lastHeight);
 			glViewport(0, 0, m_lastWidth, m_lastHeight);
+
+			// Front face is clockwise.
+			glFrontFace(GL_CW);
 
 			m_initialized = true;
 			return true;
@@ -264,7 +304,7 @@ namespace Gamma
 				return;
 			}
 
-			GLenum capability = getGlFeature(feature);
+			GLenum capability = getFeature(feature);
 			if(!capability)
 			{
 				return;
@@ -280,13 +320,29 @@ namespace Gamma
 				return;
 			}
 
-			GLenum capability = getGlFeature(feature);
+			GLenum capability = getFeature(feature);
 			if(!capability)
 			{
 				return;
 			}
 
 			glDisable(capability);
+		}
+
+		void Renderer::setCullFace(CullFace_t cullFace)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			GLenum mode = getCullFace(cullFace);
+			if(!mode)
+			{
+				return;
+			}
+
+			glCullFace(mode);
 		}
 
 		void Renderer::setBlendFunction(BlendFunction_t sourceFunction, BlendFunction_t destinationFunction)
@@ -296,8 +352,8 @@ namespace Gamma
 				return;
 			}
 
-			GLenum sourceFactor = getGlBlendFunction(sourceFunction);
-			GLenum destinationFactor = getGlBlendFunction(destinationFunction);
+			GLenum sourceFactor = getBlendFunction(sourceFunction);
+			GLenum destinationFactor = getBlendFunction(destinationFunction);
 			if(!sourceFactor || !destinationFactor)
 			{
 				return;
@@ -313,7 +369,7 @@ namespace Gamma
 				return;
 			}
 
-			GLenum function = getGlCompareFunction(depthFunction);
+			GLenum function = getCompareFunction(depthFunction);
 			if(!function)
 			{
 				return;
@@ -329,7 +385,7 @@ namespace Gamma
 				return;
 			}
 
-			GLenum function = getGlCompareFunction(stencilFunction);
+			GLenum function = getCompareFunction(stencilFunction);
 			if(!function)
 			{
 				return;
@@ -345,9 +401,9 @@ namespace Gamma
 				return;
 			}
 
-			GLenum sFail = getGlStencilOperation(stencilFail);
-			GLenum zFail = getGlStencilOperation(depthFail);
-			GLenum zPass = getGlStencilOperation(depthPass);
+			GLenum sFail = getStencilOperation(stencilFail);
+			GLenum zFail = getStencilOperation(depthFail);
+			GLenum zPass = getStencilOperation(depthPass);
 			if(!sFail || !zFail || !zPass)
 			{
 				return;
@@ -356,15 +412,41 @@ namespace Gamma
 			glStencilOp(sFail, zFail, zPass);
 		}
 
-		void Renderer::clear(float r, float g, float b, float a)
+		void Renderer::setColorMask(bool r, bool g, bool b, bool a)
 		{
 			if(!m_initialized)
 			{
 				return;
 			}
 
+			glColorMask(r, g, b, a);
+		}
+
+		void Renderer::setDepthMask(bool depth)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			glDepthMask(depth);
+		}
+
+		void Renderer::clear(int buffers, float r, float g, float b, float a)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			GLenum mask = getBuffers(buffers);
+			if(!mask)
+			{
+				return;
+			}
+
 			glClearColor(r, g, b, a);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			glClear(mask);
 		}
 
 		Renderer *getInternalRenderer()

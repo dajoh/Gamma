@@ -32,12 +32,15 @@ namespace Gamma
 			void enableFeature(Feature_t feature);
 			void disableFeature(Feature_t feature);
 
+			void setCullFace(CullFace_t cullFace);
 			void setBlendFunction(BlendFunction_t sourceFunction, BlendFunction_t destinationFunction);
 			void setDepthFunction(CompareFunction_t depthFunction);
 			void setStencilFunction(CompareFunction_t stencilFunction, int reference, unsigned int mask);
 			void setStencilOperation(StencilOperation_t stencilFail, StencilOperation_t depthFail, StencilOperation_t depthPass);
+			void setColorMask(bool r, bool g, bool b, bool a);
+			void setDepthMask(bool depth);
 
-			void clear(float r, float g, float b, float a);
+			void clear(int buffers, float r, float g, float b, float a);
 		private:
 			bool m_initialized;
 			int m_lastWidth, m_lastHeight;

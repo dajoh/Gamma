@@ -24,6 +24,7 @@ namespace Gamma
 			void makeIdentityMatrix();
 			void makePerspectiveMatrix(float fov, float width, float height, float zNear, float zFar);
 			void makeOrthogonalMatrix(float left, float right, float bottom, float top, float zNear, float zFar);
+			void makeLookAtMatrix(const Math::Vector3 &eye, const Math::Vector3 &center, const Math::Vector3 &up);
 
 			void translateMatrix(const Math::Vector3 &vector);
 			void rotateMatrix(float angle, const Math::Vector3 &vector);

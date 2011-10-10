@@ -5,7 +5,7 @@ namespace Gamma
 {
 	namespace Renderer
 	{
-		static inline GLenum getGlMode(Primitive_t primitive)
+		static inline GLenum getPrimitive(Primitive_t primitive)
 		{
 			switch(primitive)
 			{
@@ -26,7 +26,7 @@ namespace Gamma
 			}
 		}
 
-		static inline GLint getGlComponentCount(MeshDataType_t dataType)
+		static inline GLint getDataTypeComponents(MeshDataType_t dataType)
 		{
 			switch(dataType)
 			{
@@ -55,7 +55,7 @@ namespace Gamma
 			}
 		}
 
-		static inline GLenum getGlDataType(MeshDataType_t dataType)
+		static inline GLenum getDataType(MeshDataType_t dataType)
 		{
 			switch(dataType)
 			{
@@ -113,7 +113,7 @@ namespace Gamma
 			}
 		}
 
-		static inline GLenum getGlUsage(MeshDataUsage_t dataUsage)
+		static inline GLenum getDataUsage(MeshDataUsage_t dataUsage)
 		{
 			switch(dataUsage)
 			{
@@ -128,7 +128,7 @@ namespace Gamma
 			}
 		}
 
-		static inline GLenum getGlAccess(MeshDataAccess_t dataAccess)
+		static inline GLenum getDataAccess(int dataAccess)
 		{
 			GLenum access = 0;
 
@@ -166,7 +166,7 @@ namespace Gamma
 				return false;
 			}
 
-			GLenum usage = getGlUsage(dataUsage);
+			GLenum usage = getDataUsage(dataUsage);
 			if(!usage)
 			{
 				return false;
@@ -202,8 +202,8 @@ namespace Gamma
 					break;
 				}
 
-				GLenum type = getGlDataType(attribute->dataType);
-				GLint components = getGlComponentCount(attribute->dataType);
+				GLenum type = getDataType(attribute->dataType);
+				GLint components = getDataTypeComponents(attribute->dataType);
 				if(!type || !components)
 				{
 					break;
@@ -225,13 +225,13 @@ namespace Gamma
 				return false;
 			}
 
-			GLenum usage = getGlUsage(dataUsage);
+			GLenum usage = getDataUsage(dataUsage);
 			if(!usage)
 			{
 				return false;
 			}
 
-			m_indexFormat = getGlDataType(dataType);
+			m_indexFormat = getDataType(dataType);
 			if(!m_indexFormat)
 			{
 				return false;
@@ -271,14 +271,14 @@ namespace Gamma
 			return true;
 		}
 
-		void *Mesh::mapVertexBufferArea(unsigned int offset, unsigned int size, MeshDataAccess_t dataAccess)
+		void *Mesh::mapVertexBufferArea(unsigned int offset, unsigned int size, int dataAccess)
 		{
 			if(!m_hasVertices || m_verticesMapped)
 			{
 				return NULL;
 			}
 
-			GLenum access = getGlAccess(dataAccess);
+			GLenum access = getDataAccess(dataAccess);
 			if(!access)
 			{
 				return NULL;
@@ -296,14 +296,14 @@ namespace Gamma
 			return pointer;
 		}
 
-		void *Mesh::mapIndexBufferArea(unsigned int offset, unsigned int size, MeshDataAccess_t dataAccess)
+		void *Mesh::mapIndexBufferArea(unsigned int offset, unsigned int size, int dataAccess)
 		{
 			if(!m_hasIndices || m_indicesMapped)
 			{
 				return NULL;
 			}
 
-			GLenum access = getGlAccess(dataAccess);
+			GLenum access = getDataAccess(dataAccess);
 			if(!access)
 			{
 				return NULL;
@@ -364,7 +364,7 @@ namespace Gamma
 				return;
 			}
 
-			GLenum mode = getGlMode(primitive);
+			GLenum mode = getPrimitive(primitive);
 			if(!mode)
 			{
 				return;
@@ -382,7 +382,7 @@ namespace Gamma
 				return;
 			}
 
-			GLenum mode = getGlMode(primitive);
+			GLenum mode = getPrimitive(primitive);
 			if(!mode)
 			{
 				return;
@@ -401,7 +401,7 @@ namespace Gamma
 				return;
 			}
 
-			GLenum mode = getGlMode(primitive);
+			GLenum mode = getPrimitive(primitive);
 			if(!mode)
 			{
 				return;
@@ -419,7 +419,7 @@ namespace Gamma
 				return;
 			}
 
-			GLenum mode = getGlMode(primitive);
+			GLenum mode = getPrimitive(primitive);
 			if(!mode)
 			{
 				return;

@@ -13,10 +13,17 @@ namespace Gamma
 	{
 		typedef enum
 		{
+			Feature_Culling,
 			Feature_Blending,
 			Feature_DepthTesting,
 			Feature_StencilTesting
 		} Feature_t;
+
+		typedef enum
+		{
+			CullFace_Back,
+			CullFace_Front
+		} CullFace_t;
 
 		typedef enum
 		{
@@ -57,6 +64,13 @@ namespace Gamma
 			StencilOperation_Invert
 		} StencilOperation_t;
 
+		typedef enum
+		{
+			Buffer_Color = 0x01,
+			Buffer_Depth = 0x02,
+			Buffer_Stencil = 0x04
+		} Buffer_t;
+
 		class IRenderer
 		{
 		public:
@@ -79,12 +93,15 @@ namespace Gamma
 			virtual void enableFeature(Feature_t feature) = 0;
 			virtual void disableFeature(Feature_t feature) = 0;
 
+			virtual void setCullFace(CullFace_t cullFace) = 0;
 			virtual void setBlendFunction(BlendFunction_t sourceFunction, BlendFunction_t destinationFunction) = 0;
 			virtual void setDepthFunction(CompareFunction_t depthFunction) = 0;
 			virtual void setStencilFunction(CompareFunction_t stencilFunction, int reference, unsigned int mask) = 0;
 			virtual void setStencilOperation(StencilOperation_t stencilFail, StencilOperation_t depthFail, StencilOperation_t depthPass) = 0;
+			virtual void setColorMask(bool r, bool g, bool b, bool a) = 0;
+			virtual void setDepthMask(bool depth) = 0;
 
-			virtual void clear(float r, float g, float b, float a) = 0;
+			virtual void clear(int buffers, float r, float g, float b, float a) = 0;
 		};
 
 		GAMMA_RENDERER_EXPORT IRenderer *getRenderer();

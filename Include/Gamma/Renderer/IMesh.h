@@ -56,8 +56,8 @@ namespace Gamma
 			virtual bool fillVertexBufferArea(const void *data, unsigned int offset, unsigned int size) = 0;
 			virtual bool fillIndexBufferArea(const void *data, unsigned int offset, unsigned int size) = 0;
 
-			virtual void *mapVertexBufferArea(unsigned int offset, unsigned int size, MeshDataAccess_t dataAccess) = 0;
-			virtual void *mapIndexBufferArea(unsigned int offset, unsigned int size, MeshDataAccess_t dataAccess) = 0;
+			virtual void *mapVertexBufferArea(unsigned int offset, unsigned int size, int dataAccess) = 0;
+			virtual void *mapIndexBufferArea(unsigned int offset, unsigned int size, int dataAccess) = 0;
 			virtual void unmapVertexBuffer() = 0;
 			virtual void unmapIndexBuffer() = 0;
 

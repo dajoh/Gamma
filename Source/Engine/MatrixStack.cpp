@@ -63,6 +63,11 @@ namespace Gamma
 			m_matrices[m_matrix].top() = Math::makeOrthogonalMatrix(left, right, bottom, top, zNear, zFar);
 		}
 
+		void MatrixStack::makeLookAtMatrix(const Math::Vector3 &eye, const Math::Vector3 &center, const Math::Vector3 &up)
+		{
+			m_matrices[m_matrix].top() = Math::makeLookAtMatrix(eye, center, up);
+		}
+
 		void MatrixStack::translateMatrix(const Math::Vector3 &vector)
 		{
 			m_matrices[m_matrix].top() = Math::translateMatrix(m_matrices[m_matrix].top(), vector);
