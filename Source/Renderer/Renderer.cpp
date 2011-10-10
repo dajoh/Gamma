@@ -41,6 +41,19 @@ namespace Gamma
 			}
 		}
 
+		static inline GLenum getFrontFace(FrontFace_t frontFace)
+		{
+			switch(frontFace)
+			{
+			case FrontFace_ClockWise:
+				return GL_CW;
+			case FrontFace_CounterClockWise:
+				return GL_CCW;
+			default:
+				return 0;
+			}
+		}
+
 		static inline GLenum getBlendFunction(BlendFunction_t blendFunction)
 		{
 			switch(blendFunction)
@@ -345,6 +358,22 @@ namespace Gamma
 			glCullFace(mode);
 		}
 
+		void Renderer::setFrontFace(FrontFace_t frontFace)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			GLenum mode = getFrontFace(frontFace);
+			if(!mode)
+			{
+				return;
+			}
+
+			glFrontFace(mode);
+		}
+
 		void Renderer::setBlendFunction(BlendFunction_t sourceFunction, BlendFunction_t destinationFunction)
 		{
 			if(!m_initialized)
@@ -430,6 +459,16 @@ namespace Gamma
 			}
 
 			glDepthMask(depth);
+		}
+
+		void Renderer::setStencilMask(unsigned int mask)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			glStencilMask(mask);
 		}
 
 		void Renderer::clear(int buffers, float r, float g, float b, float a)

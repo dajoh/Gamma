@@ -27,6 +27,12 @@ namespace Gamma
 
 		typedef enum
 		{
+			FrontFace_ClockWise,
+			FrontFace_CounterClockWise
+		} FrontFace_t;
+
+		typedef enum
+		{
 			BlendFunction_Zero,
 			BlendFunction_One,
 			BlendFunction_SourceColor,
@@ -94,12 +100,16 @@ namespace Gamma
 			virtual void disableFeature(Feature_t feature) = 0;
 
 			virtual void setCullFace(CullFace_t cullFace) = 0;
+			virtual void setFrontFace(FrontFace_t frontFace) = 0;
+
 			virtual void setBlendFunction(BlendFunction_t sourceFunction, BlendFunction_t destinationFunction) = 0;
 			virtual void setDepthFunction(CompareFunction_t depthFunction) = 0;
 			virtual void setStencilFunction(CompareFunction_t stencilFunction, int reference, unsigned int mask) = 0;
 			virtual void setStencilOperation(StencilOperation_t stencilFail, StencilOperation_t depthFail, StencilOperation_t depthPass) = 0;
+
 			virtual void setColorMask(bool r, bool g, bool b, bool a) = 0;
 			virtual void setDepthMask(bool depth) = 0;
+			virtual void setStencilMask(unsigned int mask) = 0;
 
 			virtual void clear(int buffers, float r, float g, float b, float a) = 0;
 		};
