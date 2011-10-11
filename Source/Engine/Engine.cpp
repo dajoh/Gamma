@@ -1,6 +1,7 @@
 #include <cstddef>
-#include <Gamma/Renderer/IRenderer.h>
 #include <Gamma/Audio/IAudio.h>
+#include <Gamma/Renderer/IInput.h>
+#include <Gamma/Renderer/IRenderer.h>
 #include "Engine.h"
 #include "MatrixStack.h"
 #include "Sound.h"
@@ -26,7 +27,7 @@ namespace Gamma
 
 		bool Engine::initialize()
 		{
-			if(m_initialized || !Renderer::getRenderer()->isInitialized() || !Audio::getAudio()->isInitialized())
+			if(m_initialized || !Audio::getAudio()->isInitialized() || !Renderer::getInput()->isInitialized() || !Renderer::getRenderer()->isInitialized())
 			{
 				return false;
 			}

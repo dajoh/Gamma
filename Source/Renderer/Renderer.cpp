@@ -185,15 +185,34 @@ namespace Gamma
 			{
 				return false;
 			}
+			else
+			{
+				m_initialized = true;
+			}
 
 			// Set up the viewport.
 			getWindow()->getSize(&m_lastWidth, &m_lastHeight);
 			glViewport(0, 0, m_lastWidth, m_lastHeight);
 
-			// Front face is clockwise.
-			glFrontFace(GL_CW);
+			// Enable/disable features.
+			enableFeature(Feature_DepthTesting);
+			disableFeature(Feature_Culling);
+			disableFeature(Feature_Blending);
+			disableFeature(Feature_StencilTesting);
 
-			m_initialized = true;
+			// Set up features.
+			setCullFace(CullFace_Back);
+			setFrontFace(FrontFace_ClockWise);
+			setBlendFunction(BlendFunction_SourceAlpha, BlendFunction_OneMinusSourceAlpha);
+			setDepthFunction(CompareFunction_Less);
+			setStencilFunction(CompareFunction_Never, 0, 0xFFFFFFFF);
+			setStencilOperation(StencilOperation_Keep, StencilOperation_Keep, StencilOperation_Keep);
+
+			// Set up masks.
+			setColorMask(true, true, true, true);
+			setDepthMask(true);
+			setStencilMask(0xFFFFFFFF);
+
 			return true;
 		}
 

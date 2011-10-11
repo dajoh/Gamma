@@ -35,6 +35,12 @@ solution "Gamma"
 		configuration { "linux", "x64" }
 			buildoptions { "-fPIC" }
 	
+	project "Audio"
+		kind "SharedLib"
+		files { "Source/Audio/**.cpp", "Source/Audio/**.h" }
+		links { "openal", "Utilities" }
+		defines { "GAMMA_AUDIO_INTERNAL" }
+	
 	project "Renderer"
 		kind "SharedLib"
 		files { "Source/Renderer/**.cpp", "Source/Renderer/**.h" }
@@ -49,14 +55,8 @@ solution "Gamma"
 			links { "X11", "GL", "GLEW" }
 			excludes { "Source/Renderer/Win32/**" }
 	
-	project "Audio"
-		kind "SharedLib"
-		files { "Source/Audio/**.cpp", "Source/Audio/**.h" }
-		links { "openal", "Utilities" }
-		defines { "GAMMA_AUDIO_INTERNAL" }
-	
 	project "Engine"
 		kind "SharedLib"
 		files { "Source/Engine/**.cpp", "Source/Engine/**.h" }
-		links { "Utilities", "Renderer", "Audio" }
+		links { "Utilities", "Audio", "Renderer" }
 		defines { "GAMMA_ENGINE_INTERNAL" }

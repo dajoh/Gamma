@@ -50,8 +50,16 @@ namespace Gamma
 				alcCloseDevice(m_device);
 				return false;
 			}
+			else
+			{
+				m_initialized = true;
+			}
 
-			m_initialized = true;
+			// Set up the listener.
+			setListenerPosition(Math::Vector3(0.0f, 0.0f, 0.0f));
+			setListenerVelocity(Math::Vector3(0.0f, 0.0f, 0.0f));
+			setListenerOrientation(Math::Vector3(0.0f, 0.0f, 1.0f), Math::Vector3(0.0f, 1.0f, 0.0f));
+
 			return true;
 		}
 
