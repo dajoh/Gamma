@@ -10,10 +10,12 @@ namespace Gamma
 		typedef enum
 		{
 			FramebufferAttachPoint_Depth,
-			FramebufferAttachPoint_Color0,
+			FramebufferAttachPoint_Stencil,
 			FramebufferAttachPoint_Color1,
 			FramebufferAttachPoint_Color2,
-			FramebufferAttachPoint_Color3
+			FramebufferAttachPoint_Color3,
+			FramebufferAttachPoint_Color4,
+			FramebufferAttachPoint_Color5
 		} FramebufferAttachPoint_t;
 
 		class IFramebuffer

@@ -490,7 +490,17 @@ namespace Gamma
 			glStencilMask(mask);
 		}
 
-		void Renderer::clear(int buffers, float r, float g, float b, float a)
+		void Renderer::setClearColor(float r, float g, float b, float a)
+		{
+			if(!m_initialized)
+			{
+				return;
+			}
+
+			glClearColor(r, g, b, a);
+		}
+
+		void Renderer::clear(int buffers)
 		{
 			if(!m_initialized)
 			{
@@ -503,7 +513,6 @@ namespace Gamma
 				return;
 			}
 
-			glClearColor(r, g, b, a);
 			glClear(mask);
 		}
 

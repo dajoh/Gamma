@@ -44,7 +44,8 @@ namespace Gamma
 			void setDepthMask(bool depth);
 			void setStencilMask(unsigned int mask);
 
-			void clear(int buffers, float r, float g, float b, float a);
+			void setClearColor(float r, float g, float b, float a);
+			void clear(int buffers);
 		private:
 			bool m_initialized;
 			int m_lastWidth, m_lastHeight;

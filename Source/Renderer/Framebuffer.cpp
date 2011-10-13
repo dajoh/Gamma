@@ -29,23 +29,29 @@ namespace Gamma
 			case FramebufferAttachPoint_Depth:
 				attachment = GL_DEPTH_ATTACHMENT;
 				break;
-			case FramebufferAttachPoint_Color0:
-				attachment = GL_COLOR_ATTACHMENT0;
+			case FramebufferAttachPoint_Stencil:
+				attachment = GL_STENCIL_ATTACHMENT;
 				break;
 			case FramebufferAttachPoint_Color1:
-				attachment = GL_COLOR_ATTACHMENT1;
+				attachment = GL_COLOR_ATTACHMENT0;
 				break;
 			case FramebufferAttachPoint_Color2:
-				attachment = GL_COLOR_ATTACHMENT2;
+				attachment = GL_COLOR_ATTACHMENT1;
 				break;
 			case FramebufferAttachPoint_Color3:
+				attachment = GL_COLOR_ATTACHMENT2;
+				break;
+			case FramebufferAttachPoint_Color4:
 				attachment = GL_COLOR_ATTACHMENT3;
+				break;
+			case FramebufferAttachPoint_Color5:
+				attachment = GL_COLOR_ATTACHMENT4;
 				break;
 			default:
 				return;
 			}
 
-			if(attachment != GL_DEPTH_ATTACHMENT)
+			if(attachPoint > FramebufferAttachPoint_Stencil)
 			{
 				bool found = false;
 				for(int i = 0; i < m_bufferCount; i++)

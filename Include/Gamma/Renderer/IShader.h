@@ -10,16 +10,10 @@ namespace Gamma
 {
 	namespace Renderer
 	{
-		typedef struct
-		{
-			const char *name;
-			unsigned int meshAttributeIndex;
-		} ShaderAttribute_t;
-
 		class IShader
 		{
 		public:
-			virtual bool load(const char *vertexShader, const char *fragmentShader, ShaderAttribute_t *attributes) = 0;
+			virtual bool load(const char *vertexShader, const char *fragmentShader) = 0;
 			virtual void unload() = 0;
 			virtual bool isLoaded() const = 0;
 
@@ -31,7 +25,6 @@ namespace Gamma
 			virtual void setUniformMatrix4(const char *name, const Math::Matrix4 &value) = 0;
 			virtual void setUniformIntArray(const char *name, unsigned int count, const int *value) = 0;
 			virtual void setUniformFloatArray(const char *name, unsigned int count, const float *value) = 0;
-			virtual void setFragmentLocation(const char *name, int fragmentIndex) = 0;
 
 			virtual void bind() = 0;
 			virtual void unbind() = 0;

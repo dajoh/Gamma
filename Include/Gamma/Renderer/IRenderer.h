@@ -111,7 +111,8 @@ namespace Gamma
 			virtual void setDepthMask(bool depth) = 0;
 			virtual void setStencilMask(unsigned int mask) = 0;
 
-			virtual void clear(int buffers, float r, float g, float b, float a) = 0;
+			virtual void setClearColor(float r, float g, float b, float a) = 0;
+			virtual void clear(int buffers) = 0;
 		};
 
 		GAMMA_RENDERER_EXPORT IRenderer *getRenderer();

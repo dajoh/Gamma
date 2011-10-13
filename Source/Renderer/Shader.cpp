@@ -7,7 +7,7 @@ namespace Gamma
 {
 	namespace Renderer
 	{
-		Shader::Shader() : m_fragmentLocationSet(false), m_loaded(false)
+		Shader::Shader() : m_loaded(false)
 		{
 			m_program = glCreateProgram();
 			m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -26,17 +26,10 @@ namespace Gamma
 			glDeleteProgram(m_program);
 		}
 
-		bool Shader::load(const char *vertexShader, const char *fragmentShader, ShaderAttribute_t *attributes)
+		bool Shader::load(const char *vertexShader, const char *fragmentShader)
 		{
 			if(m_loaded)
 			{
-				return false;
-			}
-
-			// The fragment location has to be set before we link the shader.
-			if(!m_fragmentLocationSet)
-			{
-				Utilities::printDebugString("[Gamma::Renderer::Shader] Fragment location not set for %s.\n", fragmentShader);
 				return false;
 			}
 
@@ -85,17 +78,6 @@ namespace Gamma
 			// Attach shaders and link program.
 			glAttachShader(m_program, m_vertexShader);
 			glAttachShader(m_program, m_fragmentShader);
-
-			// Set up vertex attributes.
-			for(unsigned int i = 0; true; i++)
-			{
-				if(!attributes[i].name)
-				{
-					break;
-				}
-
-				glBindAttribLocation(m_program, attributes[i].meshAttributeIndex, attributes[i].name);
-			}
 
 			// Check for link errors.
 			int linkStatus;
@@ -171,7 +153,7 @@ namespace Gamma
 			GLint location = glGetUniformLocation(m_program, name);
 			if(location != -1)
 			{
-				glUniform2fv(location, 1, &value[0]);
+				glUniform3fv(location, 1, &value[0]);
 			}
 		}
 
@@ -185,7 +167,7 @@ namespace Gamma
 			GLint location = glGetUniformLocation(m_program, name);
 			if(location != -1)
 			{
-				glUniform3fv(location, 1, &value[0]);
+				glUniform4fv(location, 1, &value[0]);
 			}
 		}
 
@@ -243,12 +225,6 @@ namespace Gamma
 			{
 				glUniform1fv(location, count, value);
 			}
-		}
-
-		void Shader::setFragmentLocation(const char *name, int fragmentIndex)
-		{
-			glBindFragDataLocation(m_program, fragmentIndex, name);
-			m_fragmentLocationSet = true;
 		}
 
 		void Shader::bind()

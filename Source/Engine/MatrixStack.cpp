@@ -103,7 +103,7 @@ namespace Gamma
 
 		const Math::Matrix3 &MatrixStack::getNormalMatrix()
 		{
-			m_normalMatrix = Math::transposeMatrix(Math::invertMatrix(Math::Matrix3(m_matrices[MatrixType_View].top() * m_matrices[MatrixType_Model].top())));
+			m_normalMatrix = Math::transposeMatrix(Math::invertMatrix(Math::Matrix3(m_matrices[MatrixType_Model].top())));
 			return m_normalMatrix;
 		}
 	}

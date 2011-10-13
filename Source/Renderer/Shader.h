@@ -14,7 +14,7 @@ namespace Gamma
 			Shader();
 			~Shader();
 
-			bool load(const char *vertexShader, const char *fragmentShader, ShaderAttribute_t *attributes);
+			bool load(const char *vertexShader, const char *fragmentShader);
 			void unload();
 			bool isLoaded() const;
 
@@ -26,7 +26,6 @@ namespace Gamma
 			void setUniformMatrix4(const char *name, const Math::Matrix4 &value);
 			void setUniformIntArray(const char *name, unsigned int count, const int *value);
 			void setUniformFloatArray(const char *name, unsigned int count, const float *value);
-			void setFragmentLocation(const char *name, int fragmentIndex);
 
 			void bind();
 			void unbind();
@@ -36,7 +35,6 @@ namespace Gamma
 			static void printShaderLog(GLuint shader);
 			static void printProgramLog(GLuint program);
 
-			bool m_fragmentLocationSet;
 			bool m_loaded;
 			GLuint m_program;
 			GLuint m_vertexShader;
