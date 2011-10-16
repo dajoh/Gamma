@@ -106,6 +106,7 @@ namespace Gamma
 
 			glDetachShader(m_program, m_fragmentShader);
 			glDetachShader(m_program, m_vertexShader);
+			m_locationCache.clear();
 
 			m_loaded = false;
 		}
@@ -122,7 +123,7 @@ namespace Gamma
 				return;
 			}
 
-			GLint location = glGetUniformLocation(m_program, name);
+			GLint location = getUniformLocation(name);
 			if(location != -1)
 			{
 				glUniform1i(location, value);
@@ -136,7 +137,7 @@ namespace Gamma
 				return;
 			}
 
-			GLint location = glGetUniformLocation(m_program, name);
+			GLint location = getUniformLocation(name);
 			if(location != -1)
 			{
 				glUniform1f(location, value);
@@ -150,7 +151,7 @@ namespace Gamma
 				return;
 			}
 
-			GLint location = glGetUniformLocation(m_program, name);
+			GLint location = getUniformLocation(name);
 			if(location != -1)
 			{
 				glUniform3fv(location, 1, &value[0]);
@@ -164,7 +165,7 @@ namespace Gamma
 				return;
 			}
 
-			GLint location = glGetUniformLocation(m_program, name);
+			GLint location = getUniformLocation(name);
 			if(location != -1)
 			{
 				glUniform4fv(location, 1, &value[0]);
@@ -178,7 +179,7 @@ namespace Gamma
 				return;
 			}
 
-			GLint location = glGetUniformLocation(m_program, name);
+			GLint location = getUniformLocation(name);
 			if(location != -1)
 			{
 				glUniformMatrix3fv(location, 1, GL_FALSE, &value[0][0]);
@@ -192,7 +193,7 @@ namespace Gamma
 				return;
 			}
 
-			GLint location = glGetUniformLocation(m_program, name);
+			GLint location = getUniformLocation(name);
 			if(location != -1)
 			{
 				glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
@@ -206,7 +207,7 @@ namespace Gamma
 				return;
 			}
 
-			GLint location = glGetUniformLocation(m_program, name);
+			GLint location = getUniformLocation(name);
 			if(location != -1)
 			{
 				glUniform1iv(location, count, value);
@@ -220,7 +221,7 @@ namespace Gamma
 				return;
 			}
 
-			GLint location = glGetUniformLocation(m_program, name);
+			GLint location = getUniformLocation(name);
 			if(location != -1)
 			{
 				glUniform1fv(location, count, value);
@@ -295,6 +296,18 @@ namespace Gamma
 
 			Utilities::printDebugString("%s\n", buffer);
 			free(buffer);
+		}
+
+		GLint Shader::getUniformLocation(const char *name)
+		{
+			if(m_locationCache.count(name))
+			{
+				return m_locationCache[name];
+			}
+
+			GLint location = glGetUniformLocation(m_program, name);
+			m_locationCache[name] = location;
+			return location;
 		}
 	}
 }

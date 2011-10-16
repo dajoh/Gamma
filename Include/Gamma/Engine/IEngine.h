@@ -34,6 +34,7 @@ namespace Gamma
 			virtual void endFrame() = 0;
 			virtual float getEngineTime() const = 0;
 			virtual float getFrameTime() const = 0;
+			virtual float getLastFrameTime() const = 0;
 		};
 		
 		GAMMA_ENGINE_EXPORT IEngine *getEngine();

@@ -34,7 +34,7 @@ namespace Gamma
 
 #ifdef GAMMA_PLATFORM_WIN32
 			QueryPerformanceFrequency(&m_frequency);
-			QueryPerformanceCounter(&m_engineTime);
+			QueryPerformanceCounter(&m_engineStartTime);
 #else
 			// ...
 #endif
@@ -173,7 +173,9 @@ namespace Gamma
 			}
 
 #ifdef GAMMA_PLATFORM_WIN32
-			QueryPerformanceCounter(&m_frameEndTime);
+			LARGE_INTEGER currentTime;
+			QueryPerformanceCounter(&currentTime);
+			m_lastFrameTime = (currentTime.QuadPart - m_frameStartTime.QuadPart) / (float)m_frequency.QuadPart;
 #else
 			// ...
 #endif
@@ -191,7 +193,7 @@ namespace Gamma
 #ifdef GAMMA_PLATFORM_WIN32
 			LARGE_INTEGER currentTime;
 			QueryPerformanceCounter(&currentTime);
-			return (float)(currentTime.QuadPart - m_engineTime.QuadPart) / (float)m_frequency.QuadPart;
+			return (currentTime.QuadPart - m_engineStartTime.QuadPart) / (float)m_frequency.QuadPart;
 #else
 			return 0.0f;
 #endif
@@ -205,16 +207,23 @@ namespace Gamma
 			}
 
 #ifdef GAMMA_PLATFORM_WIN32
-			if(m_inFrame)
+			LARGE_INTEGER currentTime;
+			QueryPerformanceCounter(&currentTime);
+			return (currentTime.QuadPart - m_frameStartTime.QuadPart) / (float)m_frequency.QuadPart;
+#else
+			return 0.0f;
+#endif
+		}
+
+		float Engine::getLastFrameTime() const
+		{
+			if(!m_initialized)
 			{
-				LARGE_INTEGER currentTime;
-				QueryPerformanceCounter(&currentTime);
-				return (float)(currentTime.QuadPart - m_frameStartTime.QuadPart) / (float)m_frequency.QuadPart;
+				return 0.0f;
 			}
-			else
-			{
-				return (float)(m_frameEndTime.QuadPart - m_frameStartTime.QuadPart) / (float)m_frequency.QuadPart;
-			}
+
+#ifdef GAMMA_PLATFORM_WIN32
+			return m_lastFrameTime;
 #else
 			return 0.0f;
 #endif

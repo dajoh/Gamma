@@ -149,7 +149,7 @@ namespace Gamma
 		inline Matrix4 translateMatrix(const Matrix4 &matrix, const Vector3 &vector)
 		{
 			Matrix4 result(matrix);
-			result[3] = matrix[0] * vector.x + matrix[1] * vector.y + matrix[2] * vector.z + matrix[3];
+			result[3] = matrix[0] * -vector.x + matrix[1] * vector.y + matrix[2] * -vector.z + matrix[3];
 			return result;
 		}
 
@@ -244,7 +244,7 @@ namespace Gamma
 
 		inline Matrix4 makeLookAtMatrix(const Vector3 &eye, const Vector3 &center, const Vector3 &up)
 		{
-			Vector3 fixedEye(-eye.x, -eye.y, eye.z);
+			Vector3 fixedEye(eye.x, -eye.y, eye.z);
 			Vector3 f = normalize(center - fixedEye);
 			Vector3 u = normalize(up);
 			Vector3 s = normalize(cross(f, u));

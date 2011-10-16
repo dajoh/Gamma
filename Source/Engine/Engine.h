@@ -37,15 +37,16 @@ namespace Gamma
 			void endFrame();
 			float getEngineTime() const;
 			float getFrameTime() const;
+			float getLastFrameTime() const;
 		private:
 			bool m_initialized;
 			bool m_inFrame;
 
 #ifdef GAMMA_PLATFORM_WIN32
 			LARGE_INTEGER m_frequency;
-			LARGE_INTEGER m_engineTime;
+			LARGE_INTEGER m_engineStartTime;
 			LARGE_INTEGER m_frameStartTime;
-			LARGE_INTEGER m_frameEndTime;
+			float m_lastFrameTime;
 #else
 			// ...
 #endif

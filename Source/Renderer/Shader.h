@@ -1,6 +1,8 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <map>
+#include <string>
 #include <GL/glew.h>
 #include <Gamma/Renderer/IShader.h>
 
@@ -34,11 +36,13 @@ namespace Gamma
 			static void freeShaderSource(char *shaderSource);
 			static void printShaderLog(GLuint shader);
 			static void printProgramLog(GLuint program);
+			GLint getUniformLocation(const char *name);
 
 			bool m_loaded;
 			GLuint m_program;
 			GLuint m_vertexShader;
 			GLuint m_fragmentShader;
+			std::map<std::string, GLint> m_locationCache;
 		};
 	}
 }
